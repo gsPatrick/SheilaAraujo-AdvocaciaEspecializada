@@ -1,0 +1,205 @@
+.container {
+    min-height: 100vh;
+}
+
+.content {
+    padding: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.heroTitle {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #000;
+}
+
+.heroText {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.statCard {
+    padding: 24px !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid var(--border);
+}
+
+.statCard:hover {
+    transform: translateY(-4px);
+    border-color: #000;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.statCard.activeCard {
+    border-bottom: 4px solid #000;
+}
+
+.statContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-top: 4px;
+    color: #000;
+}
+
+.statIcon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.mainGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.chatList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.chatItem {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.chatItem:hover {
+    border-color: #000;
+    background: var(--surface);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.chatInfo {
+    flex: 1;
+}
+
+.chatName {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.chatSnippet {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.aiToggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+
+.aiActive {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.aiInactive {
+    background: #fee2e2;
+    color: #ef4444;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 20px 16px;
+        /* Native app spacing */
+        gap: 24px;
+    }
+
+    .heroTitle {
+        font-size: 1.75rem;
+        /* Smaller title for mobile */
+    }
+
+    .statsGrid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .mainGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .statCard {
+        padding: 20px !important;
+        /* Compact but clear */
+    }
+
+    .chatItem {
+        padding: 20px;
+        /* Touch target optimized */
+    }
+}

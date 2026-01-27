@@ -1,0 +1,55 @@
+.bottomNav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    /* Taller for modern feel */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+    /* iPhone Home Bar support */
+    z-index: 1000;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #94a3b8;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 12px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab span {
+    font-size: 0.7rem;
+    font-weight: 500;
+}
+
+.tab:active {
+    transform: scale(0.92);
+    /* Subtle press effect */
+}
+
+.active {
+    color: #000;
+    font-weight: 600;
+}
+
+.active span {
+    font-weight: 700;
+}
+
+@media (min-width: 769px) {
+    .bottomNav {
+        display: none;
+    }
+}

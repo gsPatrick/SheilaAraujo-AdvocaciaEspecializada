@@ -1,0 +1,299 @@
+.wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.launcher {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: #000;
+    color: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.launcher:hover {
+    transform: scale(1.05);
+}
+
+.container {
+    width: 360px;
+    height: 500px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header {
+    padding: 16px 20px;
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.backBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.backBtn:hover {
+    background: var(--surface);
+    color: #000;
+}
+
+.chatTitle h4 {
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.chatTitle span {
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.aiOn {
+    color: #22c55e;
+}
+
+.aiOff {
+    color: #f59e0b;
+}
+
+.closeBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+}
+
+.closeBtn:hover {
+    background: var(--surface);
+    color: #ef4444;
+}
+
+.body {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatListContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.searchBox {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+}
+
+.searchBox input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.chatList {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chatItem {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.chatItem:hover {
+    background: var(--surface);
+}
+
+.chatAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}
+
+.chatMeta {
+    flex: 1;
+}
+
+.chatName {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #000;
+}
+
+.chatSnippet {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.aiToggleSmall {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    transition: all 0.2s ease;
+}
+
+.aiToggleSmall.active {
+    background: #dcfce7;
+    color: #15803d;
+    border-color: #15803d;
+}
+
+.messagesContainer {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: var(--surface);
+}
+
+.messagesList {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.message {
+    display: flex;
+    width: 100%;
+}
+
+.mine {
+    justify-content: flex-end;
+}
+
+.theirs {
+    justify-content: flex-start;
+}
+
+.messageBubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.mine .messageBubble {
+    background: #000;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+}
+
+.theirs .messageBubble {
+    background: #fff;
+    color: #000;
+    border: 1px solid var(--border);
+    border-bottom-left-radius: 4px;
+}
+
+.composer {
+    padding: 16px 20px;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.composer input {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    outline: none;
+    font-size: 0.9rem;
+}
+
+.sendBtn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        display: none !important;
+    }
+}

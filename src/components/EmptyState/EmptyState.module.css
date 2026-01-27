@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.iconWrapper {
+    color: var(--text-muted);
+    opacity: 0.3;
+    margin-bottom: 20px;
+}
+
+.message {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 8px;
+}
+
+.submessage {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    max-width: 240px;
+    line-height: 1.5;
+}

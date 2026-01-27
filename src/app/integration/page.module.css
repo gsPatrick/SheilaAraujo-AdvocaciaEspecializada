@@ -1,0 +1,171 @@
+.container {
+    min-height: 100vh;
+    padding-bottom: 80px;
+}
+
+.content {
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.intro {
+    margin-bottom: 48px;
+}
+
+.intro h1 {
+    font-size: 2.25rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #000;
+}
+
+.intro p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
+.intCard {
+    padding: 32px !important;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.iconWrapper {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.statusBadge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #dcfce7;
+    color: #15803d;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+}
+
+.cardBody h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 12px;
+}
+
+.cardBody p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+}
+
+.cardFooter {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.mt {
+    margin-top: 48px;
+}
+
+.guideGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    padding: 20px 0;
+}
+
+.number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #000;
+    opacity: 0.1;
+    margin-bottom: -10px;
+}
+
+.guideItem h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 12px;
+}
+
+.guideItem p {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+
+    .grid,
+    .guideGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 24px 16px;
+        padding-bottom: 90px;
+    }
+
+    .intro h1 {
+        font-size: 1.85rem;
+    }
+
+    .intro p {
+        font-size: 1rem;
+    }
+
+    .intCard {
+        padding: 24px !important;
+    }
+
+    .grid {
+        gap: 24px;
+    }
+
+    .guideGrid {
+        gap: 32px;
+    }
+}

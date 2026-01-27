@@ -1,0 +1,139 @@
+.sidebar {
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    padding: 32px 14px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
+}
+
+.logo {
+    margin-bottom: 48px;
+    padding: 0 14px;
+}
+
+.logoLink {
+    text-decoration: none;
+}
+
+.logoText {
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.logoText span {
+    font-weight: 300;
+    opacity: 0.4;
+}
+
+.nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 14px;
+    border-radius: 10px;
+    color: var(--text-muted);
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.navItem:last-child {
+    border-bottom: none;
+}
+
+.navItem:hover {
+    background: var(--surface);
+    color: #000;
+}
+
+.active {
+    background: #000 !important;
+    color: #fff !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.footer {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--surface);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s ease;
+}
+
+.user:hover {
+    background: #eee;
+}
+
+.userInfo {
+    flex: 1;
+}
+
+.userName {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.userSub {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.logoutBtn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    color: #ef4444;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    width: 100%;
+}
+
+.logoutBtn:hover {
+    background: #fee2e2;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+}

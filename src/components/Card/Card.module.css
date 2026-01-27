@@ -1,0 +1,49 @@
+.card {
+    background: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 24px;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--foreground);
+}
+
+.subtitle {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+.content {
+    font-size: 0.9rem;
+}
+
+/* Skeleton States */
+.loading {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skeletonTitle {
+    width: 30%;
+    height: 16px;
+    background: var(--surface);
+    border-radius: 4px;
+}
+
+.skeletonBody {
+    width: 100%;
+    flex: 1;
+    background: var(--surface);
+    border-radius: 4px;
+}
