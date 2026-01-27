@@ -112,10 +112,48 @@
     color: #000;
 }
 
+
 .form {
     display: flex;
     flex-direction: column;
+    gap: 24px;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
+}
+
+.inputGroupFull {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.inputGroupFull label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #000;
+}
+
+.inputGroupFull textarea {
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    outline: none;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    resize: vertical;
+}
+
+.inputGroupFull textarea:focus {
+    border-color: #000;
+    background: #fff;
 }
 
 .inputGroup {
@@ -131,6 +169,7 @@
 }
 
 .inputGroup input,
+.inputGroup select,
 .inputGroup textarea {
     padding: 12px 16px;
     border-radius: 8px;
@@ -143,9 +182,20 @@
 }
 
 .inputGroup input:focus,
+.inputGroup select:focus,
 .inputGroup textarea:focus {
     border-color: #000;
     background: #fff;
+}
+
+.inputGroup select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    cursor: pointer;
 }
 
 .btnRow {
@@ -615,132 +665,5 @@
 
     .btnRow {
         flex-direction: column;
-    }
-}
-
-/* Triagem Summary Styles */
-.triageSummary {
-    padding: 8px 0;
-}
-
-.triageGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px 24px;
-}
-
-.triageItem {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.triageItem label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.triageItem span {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #000;
-}
-
-.triageItemFull {
-    grid-column: 1 / -1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.triageItemFull label {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.quote {
-    font-style: italic;
-    color: #555;
-    background: var(--surface);
-    padding: 8px 12px;
-    border-radius: 8px;
-    border-left: 3px solid #000;
-}
-
-.good {
-    color: #15803d !important;
-}
-
-.warning {
-    color: #a16207 !important;
-}
-
-.areaBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--surface);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.statusBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-weight: 600;
-}
-
-.statusBadge.inProgress {
-    background: #e0f2fe;
-    color: #0369a1;
-}
-
-.statusBadge.success {
-    background: #dcfce7;
-    color: #15803d;
-}
-
-.statusBadge.error {
-    background: #fee2e2;
-    color: #b91c1c;
-}
-
-.notesSection {
-    margin-top: 20px;
-    padding-top: 16px;
-    border-top: 1px solid var(--border);
-}
-
-.notesSection label {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 8px;
-}
-
-.notesBox {
-    background: var(--surface);
-    padding: 16px;
-    border-radius: 10px;
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #333;
-    white-space: pre-wrap;
-}
-
-@media (max-width: 768px) {
-    .triageGrid {
-        grid-template-columns: 1fr;
     }
 }

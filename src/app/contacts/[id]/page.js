@@ -24,7 +24,11 @@ export default function ContactDetailPage() {
         contactName: '',
         email: '',
         cpf: '',
-        notes: ''
+        notes: '',
+        area: '',
+        hasLawyer: null,
+        lawyerResponse: '',
+        triageStatus: 'em_andamento'
     });
     const [activeTab, setActiveTab] = useState('dossier');
     const [loading, setLoading] = useState(true);
@@ -42,7 +46,11 @@ export default function ContactDetailPage() {
                     contactName: response.data.contactName || '',
                     email: response.data.email || '',
                     cpf: response.data.cpf || '',
-                    notes: response.data.notes || ''
+                    notes: response.data.notes || '',
+                    area: response.data.area || '',
+                    hasLawyer: response.data.hasLawyer,
+                    lawyerResponse: response.data.lawyerResponse || '',
+                    triageStatus: response.data.triageStatus || 'em_andamento'
                 });
             } catch (error) {
                 console.error('Error fetching contact:', error);
@@ -61,7 +69,11 @@ export default function ContactDetailPage() {
                     contactName: updatedChat.contactName || '',
                     email: updatedChat.email || '',
                     cpf: updatedChat.cpf || '',
-                    notes: updatedChat.notes || ''
+                    notes: updatedChat.notes || '',
+                    area: updatedChat.area || '',
+                    hasLawyer: updatedChat.hasLawyer,
+                    lawyerResponse: updatedChat.lawyerResponse || '',
+                    triageStatus: updatedChat.triageStatus || 'em_andamento'
                 });
             }
         });
@@ -208,34 +220,79 @@ export default function ContactDetailPage() {
 
                 <Card title="Informações Coletadas" subtitle="Dados extraídos das interações e preenchidos manualmente." className={styles.mt}>
                     <div className={styles.form}>
-                        <div className={styles.inputGroup}>
-                            <label>Nome Completo</label>
-                            <input
-                                type="text"
-                                value={formData.contactName}
-                                onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                            />
+                        <div className={styles.formGrid}>
+                            <div className={styles.inputGroup}>
+                                <label>Nome Completo</label>
+                                <input
+                                    type="text"
+                                    value={formData.contactName}
+                                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>E-mail Principal</label>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>CPF / Documento</label>
+                                <input
+                                    type="text"
+                                    value={formData.cpf}
+                                    onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Área Jurídica</label>
+                                <select
+                                    value={formData.area}
+                                    onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                                >
+                                    <option value="">Não definido</option>
+                                    <option value="previdenciario">Previdenciário</option>
+                                    <option value="trabalhista">Trabalhista</option>
+                                    <option value="outro">Outro</option>
+                                </select>
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Possui Advogado?</label>
+                                <select
+                                    value={formData.hasLawyer === null ? "" : formData.hasLawyer}
+                                    onChange={(e) => setFormData({ ...formData, hasLawyer: e.target.value === "" ? null : e.target.value === "true" })}
+                                >
+                                    <option value="">Não definido</option>
+                                    <option value="true">Sim</option>
+                                    <option value="false">Não</option>
+                                </select>
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Resposta sobre Advogado</label>
+                                <input
+                                    type="text"
+                                    value={formData.lawyerResponse}
+                                    onChange={(e) => setFormData({ ...formData, lawyerResponse: e.target.value })}
+                                    placeholder="Frase dita pelo cliente..."
+                                />
+                            </div>
+                            <div className={styles.inputGroup}>
+                                <label>Status da Triagem</label>
+                                <select
+                                    value={formData.triageStatus}
+                                    onChange={(e) => setFormData({ ...formData, triageStatus: e.target.value })}
+                                >
+                                    <option value="em_andamento">Em Andamento</option>
+                                    <option value="finalizada">Finalizada</option>
+                                    <option value="encerrada_etica">Encerrada (Ética)</option>
+                                </select>
+                            </div>
                         </div>
-                        <div className={styles.inputGroup}>
-                            <label>E-mail Principal</label>
-                            <input
-                                type="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label>CPF / Documento</label>
-                            <input
-                                type="text"
-                                value={formData.cpf}
-                                onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
-                            />
-                        </div>
-                        <div className={styles.inputGroup}>
-                            <label>Observações e Contexto</label>
+                        <div className={styles.inputGroupFull}>
+                            <label>Observações e Contexto (Resumo da Carol)</label>
                             <textarea
-                                rows={4}
+                                rows={6}
                                 value={formData.notes}
                                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                             />
@@ -255,64 +312,6 @@ export default function ContactDetailPage() {
                     </div>
                 </Card>
 
-                {/* Triagem Summary Card - Auto-generated by Carol */}
-                <Card title="📋 Resumo da Triagem" subtitle="Dados extraídos automaticamente pela Carol." className={styles.mt}>
-                    <div className={styles.triageSummary}>
-                        <div className={styles.triageGrid}>
-                            <div className={styles.triageItem}>
-                                <label>Nome:</label>
-                                <span>{contact.contactName || '—'}</span>
-                            </div>
-                            <div className={styles.triageItem}>
-                                <label>{contact.cpf?.length > 11 ? 'CNPJ:' : 'CPF:'}</label>
-                                <span>{contact.cpf || '—'}</span>
-                            </div>
-                            <div className={styles.triageItem}>
-                                <label>Email:</label>
-                                <span>{contact.email || '—'}</span>
-                            </div>
-                            <div className={styles.triageItem}>
-                                <label>Advogado:</label>
-                                <span className={contact.hasLawyer === false ? styles.good : contact.hasLawyer === true ? styles.warning : ''}>
-                                    {contact.hasLawyer === false ? '✅ Não possui' : contact.hasLawyer === true ? '⚠️ Já possui advogado' : '—'}
-                                </span>
-                            </div>
-                            {contact.lawyerResponse && (
-                                <div className={styles.triageItemFull}>
-                                    <label>Resposta sobre advogado:</label>
-                                    <span className={styles.quote}>"{contact.lawyerResponse}"</span>
-                                </div>
-                            )}
-                            <div className={styles.triageItem}>
-                                <label>Área Jurídica:</label>
-                                <span className={styles.areaBadge}>
-                                    {contact.area === 'previdenciario' ? '🏛️ Previdenciário' :
-                                        contact.area === 'trabalhista' ? '⚖️ Trabalhista' :
-                                            contact.area === 'outro' ? '📁 Outro' : '—'}
-                                </span>
-                            </div>
-                            <div className={styles.triageItem}>
-                                <label>Status da Triagem:</label>
-                                <span className={`${styles.statusBadge} ${contact.triageStatus === 'finalizada' ? styles.success :
-                                        contact.triageStatus === 'encerrada_etica' ? styles.error :
-                                            styles.inProgress
-                                    }`}>
-                                    {contact.triageStatus === 'em_andamento' ? '🔄 Em Andamento' :
-                                        contact.triageStatus === 'finalizada' ? '✅ Finalizada' :
-                                            contact.triageStatus === 'encerrada_etica' ? '🚫 Encerrada (Ética)' : '—'}
-                                </span>
-                            </div>
-                        </div>
-                        {contact.notes && (
-                            <div className={styles.notesSection}>
-                                <label>📝 Resumo da Conversa:</label>
-                                <div className={styles.notesBox}>
-                                    {contact.notes}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </Card>
 
                 {/* Actions moved here for mobile flow if dossier tab active, but in desktop it is right col. 
                     Actually, let's keep Actions in rightCol for desktop, but for mobile we might need duplicate or shared components.
