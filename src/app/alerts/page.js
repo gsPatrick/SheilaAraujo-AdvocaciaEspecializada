@@ -86,46 +86,50 @@ export default function AlertsPage() {
                             {alerts.map((alert) => (
                                 <div key={alert.id} className={`${styles.alertItem} ${alert.isRead ? styles.read : ''}`}>
                                     <div className={styles.alertIcon}>
-                                        <Gavel size={20} />
+                                        <Gavel size={60} />
                                     </div>
 
                                     <div className={styles.alertBody}>
                                         <div className={styles.alertHeader}>
                                             <h3>{alert.title}</h3>
                                             <div className={styles.alertMeta}>
-                                                <Calendar size={14} />
-                                                <span>{new Date(alert.createdAt).toLocaleDateString('pt-BR')}</span>
-                                                <Clock size={14} />
-                                                <span>{new Date(alert.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                                                <div className={styles.metaItem}>
+                                                    <Calendar size={14} />
+                                                    <span>{new Date(alert.createdAt).toLocaleDateString('pt-BR')}</span>
+                                                </div>
+                                                <div className={styles.metaItem}>
+                                                    <Clock size={14} />
+                                                    <span>{new Date(alert.createdAt).toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</span>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div className={styles.alertProcess}>
-                                            <strong>Processo:</strong> {alert.processNumber || 'N/A'}
+                                            {alert.processNumber || 'Processo não informado'}
                                         </div>
 
                                         <p className={styles.alertSnippet}>
-                                            {alert.body?.substring(0, 300)}...
+                                            {alert.body}
                                         </p>
 
                                         <div className={styles.alertFooter}>
                                             {alert.Chat && (
                                                 <Link href={`/contacts/${alert.ChatId}`} className={styles.associatedUser}>
-                                                    <User size={14} />
-                                                    <span>Ver Cliente: {alert.Chat.contactName}</span>
+                                                    <User size={16} />
+                                                    <span>Cliente: {alert.Chat.contactName || alert.Chat.contactNumber}</span>
                                                 </Link>
                                             )}
                                             <div className={styles.actions}>
                                                 {!alert.isRead && (
                                                     <button onClick={() => markAsRead(alert.id)} className={styles.readBtn}>
-                                                        <CheckCircle size={14} />
+                                                        <CheckCircle size={16} />
                                                         Marcar como Lido
                                                     </button>
                                                 )}
                                                 {alert.link && (
                                                     <a href={alert.link} target="_blank" className={styles.linkBtn}>
-                                                        <ExternalLink size={14} />
-                                                        Ver Publicação Completa
+                                                        <ExternalLink size={16} />
+                                                        Acessar Publicação
                                                     </a>
                                                 )}
                                             </div>

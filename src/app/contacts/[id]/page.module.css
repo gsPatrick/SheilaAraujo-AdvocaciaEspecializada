@@ -138,6 +138,7 @@
     color: #000;
 }
 
+.inputGroupFull input,
 .inputGroupFull textarea {
     padding: 16px;
     border-radius: 8px;
@@ -151,6 +152,7 @@
     resize: vertical;
 }
 
+.inputGroupFull input:focus,
 .inputGroupFull textarea:focus {
     border-color: #000;
     background: #fff;
@@ -231,6 +233,31 @@
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
+}
+
+.mcActions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.expandChatBtn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+}
+
+.expandChatBtn:hover {
+    background: #000;
+    color: #fff;
+    border-color: #000;
 }
 
 .mt {

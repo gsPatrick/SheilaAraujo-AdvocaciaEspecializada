@@ -8,6 +8,75 @@
 
 .topBar {
     margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 16px;
+    background: var(--surface);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.filterGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.filterGroup label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.filterGroup select {
+    padding: 10px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.filterGroup select:focus {
+    border-color: #000;
+}
+
+.syncBtn {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.2s ease;
+    height: 42px;
+    white-space: nowrap;
+}
+
+.syncBtn:hover:not(:disabled) {
+    background: #333;
+}
+
+.syncBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .searchContainer {
@@ -233,4 +302,40 @@
         padding: 8px 16px;
         font-size: 0.85rem;
     }
+}
+/* Badges Style */
+.badges {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.synced {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.pending {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.triageBadge {
+    background: #fef9c3;
+    color: #854d0e;
+    border: 1px solid #fde047;
+}
+
+.finishedTriage {
+    background: #000;
+    color: #fff;
 }

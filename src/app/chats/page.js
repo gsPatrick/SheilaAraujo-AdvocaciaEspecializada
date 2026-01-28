@@ -7,7 +7,7 @@ import Card from '@/components/Card/Card';
 import styles from './page.module.css';
 import { ArrowLeft, Send, User, Bot, Phone, MessageSquare, ExternalLink } from 'lucide-react';
 import { useMobile } from '@/hooks/useMobile';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function ChatsPage() {
     const [chats, setChats] = useState([]);
@@ -19,12 +19,30 @@ export default function ChatsPage() {
     const socketRef = useRef(null);
     const isMobile = useMobile();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const initialChatId = searchParams.get('id');
+    const [searchTerm, setSearchTerm] = useState('');
+    const [syncStatus, setSyncStatus] = useState('');
+    const [triageStatus, setTriageStatus] = useState('');
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
         const fetchChats = async () => {
+            setLoading(true);
             try {
-                const response = await axios.get('https://geral-sheila-api.r954jc.easypanel.host/api/chats');
+                const params = {
+                    page,
+                    limit: 15,
+                    search: searchTerm,
+                    syncStatus,
+                    triageStatus
+                };
+                const response = await axios.get('https://geral-sheila-api.r954jc.easypanel.host/api/chats', { params });
                 setChats(response.data.data || []);
+                setTotalPages(response.data.pages || 1);
+                setTotalItems(response.data.total || 0);
             } catch (error) {
                 console.error('Error fetching chats:', error);
             } finally {
@@ -33,6 +51,16 @@ export default function ChatsPage() {
         };
 
         fetchChats();
+    }, [page, searchTerm, syncStatus, triageStatus]);
+
+    useEffect(() => {
+        if (initialChatId) {
+            axios.get(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${initialChatId}`)
+                .then(res => {
+                    setSelectedChat(res.data);
+                })
+                .catch(err => console.error('Error auto-selecting chat:', err));
+        }
 
         // Socket initialization
         socketRef.current = io('https://geral-sheila-api.r954jc.easypanel.host');
@@ -116,10 +144,52 @@ export default function ChatsPage() {
                                 <h3>Conversas Ativas</h3>
                                 <div className={styles.sidebarSearch}>
                                     <MessageSquare size={16} />
-                                    <input type="text" placeholder="Buscar contatos..." />
+                                    <input
+                                        type="text"
+                                        placeholder="Buscar contatos..."
+                                        value={searchTerm}
+                                        onChange={(e) => {
+                                            setSearchTerm(e.target.value);
+                                            setPage(1);
+                                        }}
+                                    />
                                 </div>
                             </div>
                         )}
+
+                        <div className={styles.filterRow}>
+                            <div className={styles.filterGroup}>
+                                <label>Origem</label>
+                                <select
+                                    className={styles.filterSelect}
+                                    value={syncStatus}
+                                    onChange={(e) => {
+                                        setSyncStatus(e.target.value);
+                                        setPage(1);
+                                    }}
+                                >
+                                    <option value="">Tudo</option>
+                                    <option value="WhatsApp">Somente WhatsApp</option>
+                                    <option value="Sincronizado">Sincronizado TI</option>
+                                </select>
+                            </div>
+                            <div className={styles.filterGroup}>
+                                <label>Status</label>
+                                <select
+                                    className={styles.filterSelect}
+                                    value={triageStatus}
+                                    onChange={(e) => {
+                                        setTriageStatus(e.target.value);
+                                        setPage(1);
+                                    }}
+                                >
+                                    <option value="">Tudo</option>
+                                    <option value="em_andamento">Em Andamento</option>
+                                    <option value="finalizada">Finalizada</option>
+                                    <option value="encerrada_etica">Encerrada (Ética)</option>
+                                </select>
+                            </div>
+                        </div>
                         <div className={styles.chatList}>
                             {loading ? (
                                 [1, 2, 3].map(i => <div key={i} className="skeleton" style={{ height: '70px', margin: '16px', borderRadius: '8px' }} />)
@@ -134,19 +204,50 @@ export default function ChatsPage() {
                                         <div className={styles.chatMeta}>
                                             <span className={styles.chatName}>{chat.contactName || chat.contactNumber}</span>
                                             <span className={styles.chatSub}>{chat.contactNumber}</span>
+                                            <div className={styles.chatBadges}>
+                                                <span className={`${styles.badge} ${chat.syncStatus === 'Sincronizado' ? styles.synced : styles.pending}`}>
+                                                    {chat.syncStatus === 'Sincronizado' ? 'TI' : 'WhatsApp'}
+                                                </span>
+                                                {chat.triageStatus === 'finalizada' && (
+                                                    <span className={`${styles.badge} ${styles.finishedTriage}`}>Finalizada</span>
+                                                )}
+                                                {chat.triageStatus === 'em_andamento' && (
+                                                    <span className={`${styles.badge} ${styles.triageBadge}`}>Em Triagem</span>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
                                 ))
                             ) : (
                                 <div className={styles.emptyList}>
-                                    <div className={styles.emptyIcon}>
-                                        <MessageSquare size={32} />
-                                    </div>
-                                    <h3>Nenhuma sessão ativa</h3>
-                                    <p>Aguardando novas interações do WhatsApp.</p>
+                                    <div className={styles.emptyIcon}><Phone size={24} /></div>
+                                    <h3>Nenhum resultado</h3>
+                                    <p>Tente ajustar os filtros ou a busca.</p>
                                 </div>
                             )}
                         </div>
+
+                        {totalPages > 1 && (
+                            <div className={styles.pagination}>
+                                <button
+                                    disabled={page === 1}
+                                    onClick={() => setPage(prev => prev - 1)}
+                                    className={styles.pageBtn}
+                                >
+                                    Anterior
+                                </button>
+                                <span className={styles.pageInfo}>
+                                    {page} de {totalPages}
+                                </span>
+                                <button
+                                    disabled={page === totalPages}
+                                    onClick={() => setPage(prev => prev + 1)}
+                                    className={styles.pageBtn}
+                                >
+                                    Próxima
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
 

@@ -13,19 +13,22 @@ export default function ContactsPage() {
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
+    const [syncStatus, setSyncStatus] = useState('');
+    const [triageStatus, setTriageStatus] = useState('');
+    const [syncing, setSyncing] = useState(false);
 
     useEffect(() => {
         const delaySearch = setTimeout(() => {
             fetchContacts();
         }, 300);
         return () => clearTimeout(delaySearch);
-    }, [search, page]);
+    }, [search, page, syncStatus, triageStatus]);
 
     const fetchContacts = async () => {
         try {
             setLoading(true);
             const response = await axios.get(`https://geral-sheila-api.r954jc.easypanel.host/api/chats`, {
-                params: { search, page, limit: 12 }
+                params: { search, page, limit: 12, syncStatus, triageStatus }
             });
             setContacts(response.data.data);
             setTotalPages(response.data.pages);
@@ -33,6 +36,21 @@ export default function ContactsPage() {
             console.error('Erro ao buscar contatos:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleSyncAll = async () => {
+        if (!confirm('Deseja importar todos os clientes do Portal TI agora? Isso pode levar alguns segundos.')) return;
+        setSyncing(true);
+        try {
+            await axios.post('https://geral-sheila-api.r954jc.easypanel.host/api/ti/sync-all');
+            alert('Sincronização em massa concluída com sucesso!');
+            fetchContacts();
+        } catch (error) {
+            console.error('Erro na sincronização em massa:', error);
+            alert('Erro ao sincronizar clientes. Verifique as configurações do TI.');
+        } finally {
+            setSyncing(false);
         }
     };
 
@@ -51,6 +69,34 @@ export default function ContactsPage() {
                             onChange={(e) => setSearch(e.target.value)}
                         />
                     </div>
+
+                    <div className={styles.filters}>
+                        <div className={styles.filterGroup}>
+                            <label>Sincronia TI</label>
+                            <select value={syncStatus} onChange={(e) => { setSyncStatus(e.target.value); setPage(1); }}>
+                                <option value="">Tudo</option>
+                                <option value="Sincronizado">Sincronizado</option>
+                                <option value="Pendente">Pendente</option>
+                            </select>
+                        </div>
+                        <div className={styles.filterGroup}>
+                            <label>Status Triagem</label>
+                            <select value={triageStatus} onChange={(e) => { setTriageStatus(e.target.value); setPage(1); }}>
+                                <option value="">Tudo</option>
+                                <option value="em_andamento">Em Andamento</option>
+                                <option value="finalizada">Finalizada</option>
+                                <option value="encerrada_etica">Encerrada (Ética)</option>
+                            </select>
+                        </div>
+                        <button
+                            className={styles.syncBtn}
+                            onClick={handleSyncAll}
+                            disabled={syncing}
+                        >
+                            <UserPlus size={18} />
+                            {syncing ? 'Sincronizando...' : 'Importar tudo do TI'}
+                        </button>
+                    </div>
                 </div>
 
                 <div className={styles.grid}>
@@ -64,12 +110,20 @@ export default function ContactsPage() {
                                         <div className={styles.avatar}>
                                             {(contact.contactName || 'U').charAt(0).toUpperCase()}
                                         </div>
-                                        <div className={`${styles.badge} ${contact.syncStatus === 'Sincronizado' ? styles.synced : styles.pending}`}>
-                                            {contact.syncStatus}
-                                        </div>
                                     </div>
 
                                     <div className={styles.cardBody}>
+                                        <div className={styles.badges}>
+                                            <span className={`${styles.badge} ${contact.syncStatus === 'Sincronizado' ? styles.synced : styles.pending}`}>
+                                                {contact.syncStatus === 'Sincronizado' ? 'TI' : 'Local'}
+                                            </span>
+                                            {contact.triageStatus === 'finalizada' && (
+                                                <span className={`${styles.badge} ${styles.finishedTriage}`}>Finalizada</span>
+                                            )}
+                                            {contact.triageStatus === 'em_andamento' && (
+                                                <span className={`${styles.badge} ${styles.triageBadge}`}>Em Triagem</span>
+                                            )}
+                                        </div>
                                         <h3 className={styles.contactName}>{contact.contactName || 'Usuário Desconhecido'}</h3>
                                         <div className={styles.contactInfo}>
                                             <div className={styles.infoRow}>

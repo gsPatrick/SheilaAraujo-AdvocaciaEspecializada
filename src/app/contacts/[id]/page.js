@@ -87,7 +87,12 @@ export default function ContactDetailPage() {
                     street: response.data.street || '',
                     street_number: response.data.street_number || '',
                     sexo: response.data.sexo || '',
-                    birthdate: response.data.birthdate || ''
+                    birthdate: response.data.birthdate || '',
+                    deathdate: response.data.deathdate || '',
+                    rg_data_emissao: response.data.rg_data_emissao || '',
+                    phone_1: response.data.phone_1 || '',
+                    phone_2: response.data.phone_2 || '',
+                    country: response.data.country || 'Brasil'
                 });
                 if (response.data.cpf) setSearchCpf(response.data.cpf);
                 if (response.data.tramitacaoCustomerId) {
@@ -867,6 +872,137 @@ export default function ContactDetailPage() {
                                                 </select>
                                             </div>
                                         </div>
+
+                                        <h4 className={styles.sectionTitle}>Endereço Completo</h4>
+                                        <div className={styles.formGrid}>
+                                            <div className={styles.inputGroup}>
+                                                <label>Rua / Logradouro</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.street}
+                                                    onChange={(e) => setFormData({ ...formData, street: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Número</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.street_number}
+                                                    onChange={(e) => setFormData({ ...formData, street_number: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Bairro</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.neighborhood}
+                                                    onChange={(e) => setFormData({ ...formData, neighborhood: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Cidade</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.city}
+                                                    onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Estado (UF)</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.state}
+                                                    onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>CEP</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.zipcode}
+                                                    onChange={(e) => setFormData({ ...formData, zipcode: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <h4 className={styles.sectionTitle}>Dados Pessoais & Filiação</h4>
+                                        <div className={styles.formGrid}>
+                                            <div className={styles.inputGroup}>
+                                                <label>Sexo</label>
+                                                <select
+                                                    value={formData.sexo}
+                                                    onChange={(e) => setFormData({ ...formData, sexo: e.target.value })}
+                                                >
+                                                    <option value="">Não definido</option>
+                                                    <option value="M">Masculino</option>
+                                                    <option value="F">Feminino</option>
+                                                </select>
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Data de Nascimento</label>
+                                                <input
+                                                    type="date"
+                                                    value={formData.birthdate}
+                                                    onChange={(e) => setFormData({ ...formData, birthdate: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Estado Civil</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.marital_status}
+                                                    onChange={(e) => setFormData({ ...formData, marital_status: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Profissão</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.profession}
+                                                    onChange={(e) => setFormData({ ...formData, profession: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>RG (Número)</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.rg_numero}
+                                                    onChange={(e) => setFormData({ ...formData, rg_numero: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>RG (Emissão)</label>
+                                                <input
+                                                    type="date"
+                                                    value={formData.rg_data_emissao}
+                                                    onChange={(e) => setFormData({ ...formData, rg_data_emissao: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Nome da Mãe</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.mother_name}
+                                                    onChange={(e) => setFormData({ ...formData, mother_name: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Nome do Pai</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.father_name}
+                                                    onChange={(e) => setFormData({ ...formData, father_name: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Senha Meu INSS</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.meu_inss_pass}
+                                                    onChange={(e) => setFormData({ ...formData, meu_inss_pass: e.target.value })}
+                                                />
+                                            </div>
+                                        </div>
                                         <div className={styles.inputGroupFull}>
                                             <label>Observações e Contexto (Resumo da Carol)</label>
                                             <textarea
@@ -971,171 +1107,192 @@ export default function ContactDetailPage() {
                         </>
                     )}
                 </div>
-                {searchResults && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
-                            <div className={styles.modalHeader}>
-                                <h3>Resultados no Portal TI</h3>
-                                <button onClick={() => setSearchResults(null)} className={styles.closeBtn}>
-                                    <X size={18} />
-                                </button>
-                            </div>
+                {
+                    searchResults && (
+                        <div className={styles.modalOverlay}>
+                            <div className={styles.modalContent}>
+                                <div className={styles.modalHeader}>
+                                    <h3>Resultados no Portal TI</h3>
+                                    <button onClick={() => setSearchResults(null)} className={styles.closeBtn}>
+                                        <X size={18} />
+                                    </button>
+                                </div>
 
-                            <div className={styles.modalSearch}>
-                                <input
-                                    type="text"
-                                    placeholder="Nova busca por Nome ou CPF..."
-                                    value={searchCpf}
-                                    onChange={(e) => setSearchCpf(e.target.value)}
-                                    onKeyDown={(e) => e.key === 'Enter' && handleSearchTI()}
-                                />
-                                <button onClick={handleSearchTI} disabled={syncing}>
-                                    <Search size={18} className={syncing ? styles.spin : ''} />
-                                </button>
-                            </div>
+                                <div className={styles.modalSearch}>
+                                    <input
+                                        type="text"
+                                        placeholder="Nova busca por Nome ou CPF..."
+                                        value={searchCpf}
+                                        onChange={(e) => setSearchCpf(e.target.value)}
+                                        onKeyDown={(e) => e.key === 'Enter' && handleSearchTI()}
+                                    />
+                                    <button onClick={handleSearchTI} disabled={syncing}>
+                                        <Search size={18} className={syncing ? styles.spin : ''} />
+                                    </button>
+                                </div>
 
-                            <div className={styles.modalBody}>
-                                {searchResults.length > 0 ? (
-                                    searchResults.map(res => (
-                                        <div key={res.id} className={styles.searchResultItem}>
-                                            <div className={styles.resInfo}>
-                                                <strong>{res.name}</strong>
-                                                <span>{res.cpf_cnpj}</span>
+                                <div className={styles.modalBody}>
+                                    {searchResults.length > 0 ? (
+                                        searchResults.map(res => (
+                                            <div key={res.id} className={styles.searchResultItem}>
+                                                <div className={styles.resInfo}>
+                                                    <strong>{res.name}</strong>
+                                                    <span>{res.cpf_cnpj}</span>
+                                                </div>
+                                                <div className={styles.resultActions}>
+                                                    <button
+                                                        className={styles.linkBtn}
+                                                        onClick={() => handleVincular(res.uuid)}
+                                                    >
+                                                        Vincular
+                                                    </button>
+                                                </div>
                                             </div>
-                                            <div className={styles.resultActions}>
+                                        ))
+                                    ) : (
+                                        <div className={styles.noResults}>
+                                            <AlertCircle size={40} color="#cbd5e1" />
+                                            <p>Nenhum cliente encontrado.</p>
+                                            <div className={styles.noResultsActions}>
                                                 <button
-                                                    className={styles.linkBtn}
-                                                    onClick={() => handleVincular(res.uuid)}
+                                                    onClick={() => handleSyncToTI()}
+                                                    className={styles.createNewBtn}
                                                 >
-                                                    Vincular
+                                                    <UserPlus size={16} />
+                                                    Cadastrar "{formData.contactName}" no TI
                                                 </button>
                                             </div>
                                         </div>
-                                    ))
-                                ) : (
-                                    <div className={styles.noResults}>
-                                        <AlertCircle size={40} color="#cbd5e1" />
-                                        <p>Nenhum cliente encontrado.</p>
-                                        <div className={styles.noResultsActions}>
-                                            <button
-                                                onClick={() => handleSyncToTI()}
-                                                className={styles.createNewBtn}
-                                            >
-                                                <UserPlus size={16} />
-                                                Cadastrar "{formData.contactName}" no TI
-                                            </button>
-                                        </div>
-                                    </div>
-                                )}
+                                    )}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
+                    )
+                }
 
                 {/* Validation/Pending Data Modal */}
-                {validationModalOpen && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
-                            <div className={styles.modalHeader}>
-                                <h3>Dados Pendentes</h3>
-                                <button onClick={() => setValidationModalOpen(false)} className={styles.closeBtn}>
-                                    <X size={18} />
-                                </button>
-                            </div>
-                            <div className={styles.modalBody} style={{ padding: '24px' }}>
-                                <p className={styles.validationNotice}>
-                                    O Tramitação Inteligente requer <strong>Nome Completo</strong> e <strong>CPF</strong> para sincronizar este contato.
-                                </p>
-                                <div className={styles.form}>
-                                    <div className={styles.inputGroupFull}>
-                                        <label>Nome Completo</label>
-                                        <input
-                                            type="text"
-                                            value={formData.contactName}
-                                            onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                                            placeholder="Ex: João da Silva"
-                                        />
-                                    </div>
-                                    <div className={styles.inputGroupFull}>
-                                        <label>CPF / Documento</label>
-                                        <input
-                                            type="text"
-                                            value={formData.cpf}
-                                            onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
-                                            placeholder="000.000.000-00"
-                                        />
-                                    </div>
+                {
+                    validationModalOpen && (
+                        <div className={styles.modalOverlay}>
+                            <div className={styles.modalContent}>
+                                <div className={styles.modalHeader}>
+                                    <h3>Dados Pendentes</h3>
+                                    <button onClick={() => setValidationModalOpen(false)} className={styles.closeBtn}>
+                                        <X size={18} />
+                                    </button>
                                 </div>
-                                <div className={styles.modalFooter} style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
-                                    <button onClick={() => setValidationModalOpen(false)} className={styles.cancelBtn}>
-                                        Cancelar
-                                    </button>
-                                    <button
-                                        onClick={async () => {
-                                            if (!formData.contactName || !formData.cpf) {
-                                                alert('Por favor, preencha o Nome e o CPF.');
-                                                return;
-                                            }
-                                            // Save locally first
-                                            setSaving(true);
-                                            try {
-                                                await axios.put(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}`, {
-                                                    contactName: formData.contactName,
-                                                    cpf: formData.cpf
-                                                });
-                                                setContact({ ...contact, contactName: formData.contactName, cpf: formData.cpf });
-                                                setValidationModalOpen(false);
-                                                // Trigger auto-sync after saving
-                                                handleAutoSync();
-                                            } catch (e) {
-                                                alert('Erro ao salvar dados locais.');
-                                            } finally {
-                                                setSaving(false);
-                                            }
-                                        }}
-                                        className={styles.saveBtn}
-                                    >
-                                        SALVAR E SINCRONIZAR
-                                    </button>
+                                <div className={styles.modalBody} style={{ padding: '24px' }}>
+                                    <p className={styles.validationNotice}>
+                                        O Tramitação Inteligente requer <strong>Nome Completo</strong> e <strong>CPF</strong> para sincronizar este contato.
+                                    </p>
+                                    <div className={styles.form}>
+                                        <div className={styles.inputGroupFull}>
+                                            <label>Nome Completo</label>
+                                            <input
+                                                type="text"
+                                                value={formData.contactName}
+                                                onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                                                placeholder="Ex: João da Silva"
+                                            />
+                                        </div>
+                                        <div className={styles.inputGroupFull}>
+                                            <label>CPF / Documento</label>
+                                            <input
+                                                type="text"
+                                                value={formData.cpf}
+                                                onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+                                                placeholder="000.000.000-00"
+                                            />
+                                        </div>
+                                        <div className={styles.inputGroupFull}>
+                                            <label>E-mail (Opcional)</label>
+                                            <input
+                                                type="email"
+                                                value={formData.email}
+                                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                placeholder="exemplo@email.com"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className={styles.modalFooter} style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                                        <button onClick={() => setValidationModalOpen(false)} className={styles.cancelBtn}>
+                                            Cancelar
+                                        </button>
+                                        <button
+                                            onClick={async () => {
+                                                if (!formData.contactName || !formData.cpf) {
+                                                    alert('Por favor, preencha o Nome e o CPF.');
+                                                    return;
+                                                }
+                                                // Save locally first
+                                                setSaving(true);
+                                                try {
+                                                    await axios.put(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}`, {
+                                                        contactName: formData.contactName,
+                                                        cpf: formData.cpf,
+                                                        email: formData.email
+                                                    });
+                                                    setContact({
+                                                        ...contact,
+                                                        contactName: formData.contactName,
+                                                        cpf: formData.cpf,
+                                                        email: formData.email
+                                                    });
+                                                    setValidationModalOpen(false);
+                                                    // Trigger auto-sync after saving
+                                                    handleAutoSync();
+                                                } catch (e) {
+                                                    alert('Erro ao salvar dados locais.');
+                                                } finally {
+                                                    setSaving(false);
+                                                }
+                                            }}
+                                            className={styles.saveBtn}
+                                        >
+                                            SALVAR E SINCRONIZAR
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
-                {noteModalOpen === true && (
-                    <div className={styles.modalOverlay}>
-                        <div className={styles.modalContent}>
-                            <div className={styles.modalHeader}>
-                                <h3>{editingNote ? 'Editar Nota' : 'Nova Nota'}</h3>
-                                <button onClick={() => setNoteModalOpen(false)} className={styles.closeBtn}>
-                                    <X size={18} />
-                                </button>
-                            </div>
-                            <div className={styles.modalBody} style={{ padding: '24px' }}>
-                                <div className={styles.inputGroupFull}>
-                                    <label>Conteúdo da Nota (Portal TI)</label>
-                                    <textarea
-                                        rows={8}
-                                        value={noteContent}
-                                        onChange={(e) => setNoteContent(e.target.value)}
-                                        placeholder="Digite as informações jurídicas aqui..."
-                                        autoFocus
-                                    />
+                    )
+                }
+                {
+                    noteModalOpen === true && (
+                        <div className={styles.modalOverlay}>
+                            <div className={styles.modalContent}>
+                                <div className={styles.modalHeader}>
+                                    <h3>{editingNote ? 'Editar Nota' : 'Nova Nota'}</h3>
+                                    <button onClick={() => setNoteModalOpen(false)} className={styles.closeBtn}>
+                                        <X size={18} />
+                                    </button>
                                 </div>
-                                <div className={styles.modalFooter} style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
-                                    <button onClick={() => setNoteModalOpen(false)} className={styles.cancelBtn}>
-                                        Cancelar
-                                    </button>
-                                    <button onClick={handleSaveNote} className={styles.saveBtn}>
-                                        <Save size={18} />
-                                        {editingNote ? 'Salvar Edição' : 'Gravar Nota no TI'}
-                                    </button>
+                                <div className={styles.modalBody} style={{ padding: '24px' }}>
+                                    <div className={styles.inputGroupFull}>
+                                        <label>Conteúdo da Nota (Portal TI)</label>
+                                        <textarea
+                                            rows={8}
+                                            value={noteContent}
+                                            onChange={(e) => setNoteContent(e.target.value)}
+                                            placeholder="Digite as informações jurídicas aqui..."
+                                            autoFocus
+                                        />
+                                    </div>
+                                    <div className={styles.modalFooter} style={{ marginTop: '24px', display: 'flex', gap: '12px' }}>
+                                        <button onClick={() => setNoteModalOpen(false)} className={styles.cancelBtn}>
+                                            Cancelar
+                                        </button>
+                                        <button onClick={handleSaveNote} className={styles.saveBtn}>
+                                            <Save size={18} />
+                                            {editingNote ? 'Salvar Edição' : 'Gravar Nota no TI'}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        </div>
+                    )
+                }
+            </div >
+        </div >
     );
 }

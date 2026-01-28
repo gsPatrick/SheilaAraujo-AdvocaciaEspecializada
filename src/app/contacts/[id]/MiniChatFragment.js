@@ -3,7 +3,8 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import styles from './page.module.css';
-import { Bot, User, Send } from 'lucide-react';
+import { Bot, User, Send, Maximize2 } from 'lucide-react';
+import Link from 'next/link';
 
 export default function MiniChatFragment({ chatId }) {
     const [messages, setMessages] = useState([]);
@@ -11,6 +12,7 @@ export default function MiniChatFragment({ chatId }) {
     const [isAiActive, setIsAiActive] = useState(false);
     const socketRef = useRef();
     const messagesEndRef = useRef(null);
+    const scrollContainerRef = useRef(null);
 
     useEffect(() => {
         socketRef.current = io('https://geral-sheila-api.r954jc.easypanel.host');
@@ -33,7 +35,9 @@ export default function MiniChatFragment({ chatId }) {
     }, [chatId]);
 
     useEffect(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+        }
     }, [messages]);
 
     const fetchInitialData = async () => {
@@ -79,16 +83,21 @@ export default function MiniChatFragment({ chatId }) {
                     <div className={`${styles.statusDot} ${isAiActive ? styles.active : ''}`} />
                     <span>Monitoramento em Tempo Real</span>
                 </div>
-                <button
-                    onClick={toggleAi}
-                    className={`${styles.aiToggle} ${isAiActive ? styles.aiActive : ''}`}
-                >
-                    {isAiActive ? <Bot size={16} /> : <User size={16} />}
-                    {isAiActive ? 'IA Ativa' : 'Modo Manual'}
-                </button>
+                <div className={styles.mcActions}>
+                    <button
+                        onClick={toggleAi}
+                        className={`${styles.aiToggle} ${isAiActive ? styles.aiActive : ''}`}
+                    >
+                        {isAiActive ? <Bot size={16} /> : <User size={16} />}
+                        {isAiActive ? 'IA Ativa' : 'Modo Manual'}
+                    </button>
+                    <Link href={`/chats?id=${chatId}`} className={styles.expandChatBtn} title="Expandir Conversa">
+                        <Maximize2 size={16} />
+                    </Link>
+                </div>
             </div>
 
-            <div className={styles.mcMessages}>
+            <div className={styles.mcMessages} ref={scrollContainerRef}>
                 {messages.map((msg, i) => (
                     <div key={msg.id || i} className={`${styles.mcMsg} ${msg.isFromMe ? styles.mcMine : styles.mcTheirs}`}>
                         <div className={styles.mcBubble}>
@@ -96,7 +105,6 @@ export default function MiniChatFragment({ chatId }) {
                         </div>
                     </div>
                 ))}
-                <div ref={messagesEndRef} />
             </div>
 
             <form className={styles.mcComposer} onSubmit={handleSendMessage}>
