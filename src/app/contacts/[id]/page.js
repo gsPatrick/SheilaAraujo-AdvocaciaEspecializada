@@ -768,6 +768,32 @@ export default function ContactDetailPage() {
                                     </Card>
                                 </div>
                             )}
+                            {activeTab === 'history' && (
+                                <div className={styles.leftCol}>
+                                    <div className={styles.mobileChatHeader}>
+                                        <button onClick={() => setActiveTab('dossier')}>
+                                            <ArrowLeft size={24} />
+                                        </button>
+                                        <h3>Histórico do Cliente</h3>
+                                    </div>
+                                    <Card>
+                                        <HistoryContent />
+                                    </Card>
+                                </div>
+                            )}
+                            {activeTab === 'alerts' && (
+                                <div className={styles.leftCol}>
+                                    <div className={styles.mobileChatHeader}>
+                                        <button onClick={() => setActiveTab('dossier')}>
+                                            <ArrowLeft size={24} />
+                                        </button>
+                                        <h3>Alertas do Cliente</h3>
+                                    </div>
+                                    <Card>
+                                        <AlertsContent />
+                                    </Card>
+                                </div>
+                            )}
                             {activeTab === 'chat' && (
                                 <div className={styles.mobileChatWrapper}>
                                     <div className={styles.mobileChatHeader}>
