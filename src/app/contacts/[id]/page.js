@@ -282,18 +282,7 @@ export default function ContactDetailPage() {
         });
     };
 
-    const handleUpdateTI = async () => {
-        setSyncing(true);
-        try {
-            await axios.patch(`https://geral-sheila-api.r954jc.easypanel.host/api/ti/customer/${id}`, formData);
-            alert('Dados atualizados no Portal TI!');
-        } catch (error) {
-            console.error('Error updating TI:', error);
-            alert('Erro ao atualizar no TI.');
-        } finally {
-            setSyncing(false);
-        }
-    };
+
 
     const handleSaveNote = async () => {
         if (!noteContent.trim()) return;
@@ -703,12 +692,7 @@ export default function ContactDetailPage() {
                                                     <Save size={18} />
                                                     {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
                                                 </button>
-                                                {contact.tramitacaoCustomerId && (
-                                                    <button onClick={handleUpdateTI} className={styles.tiBtn} disabled={syncing}>
-                                                        <RefreshCw size={18} />
-                                                        {syncing ? 'Sincronizando...' : 'Atualizar no TI'}
-                                                    </button>
-                                                )}
+
                                             </div>
                                         </div>
                                     </Card>
