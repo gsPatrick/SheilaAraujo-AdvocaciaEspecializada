@@ -1,12 +1,18 @@
 :root {
   --background: #ffffff;
-  --foreground: #111111;
-  --surface: #f7f7f8;
-  --surface-hover: #efeff1;
-  --accent: #000000;
-  --accent-muted: rgba(0, 0, 0, 0.05);
-  --border: rgba(0, 0, 0, 0.08);
-  --text-muted: #666666;
+  --foreground: #95304e;
+  --surface: #fcfaf3;
+  --surface-hover: #f7f1e1;
+
+  --primary: #95304e;
+  --primary-hover: #7a2740;
+  --secondary: #d3c07b;
+  --tertiary: #ead792;
+
+  --accent: var(--primary);
+  --accent-muted: rgba(149, 48, 78, 0.1);
+  --border: rgba(149, 48, 78, 0.15);
+  --text-muted: #a67c52;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 }

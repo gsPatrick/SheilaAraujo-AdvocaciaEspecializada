@@ -7,14 +7,14 @@
     /* Taller for modern feel */
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--border);
     display: flex;
     justify-content: space-around;
     align-items: center;
     padding-bottom: env(safe-area-inset-bottom, 20px);
     /* iPhone Home Bar support */
     z-index: 1000;
-    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 -4px 20px var(--accent-muted);
 }
 
 .tab {
@@ -40,7 +40,7 @@
 }
 
 .active {
-    color: #000;
+    color: var(--primary);
     font-weight: 600;
 }
 

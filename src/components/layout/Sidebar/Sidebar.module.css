@@ -17,23 +17,17 @@
 .logo {
     margin-bottom: 48px;
     padding: 0 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.logoLink {
-    text-decoration: none;
-}
-
-.logoText {
-    font-size: 1.3rem;
-    font-weight: 800;
-    letter-spacing: -0.05em;
-    color: #000;
-    text-transform: uppercase;
-}
-
-.logoText span {
-    font-weight: 300;
-    opacity: 0.4;
+.logoImage {
+    width: 160px;
+    /* Increased size since it's now solo */
+    height: auto;
+    object-fit: contain;
 }
 
 .nav {
@@ -61,14 +55,14 @@
 }
 
 .navItem:hover {
-    background: var(--surface);
-    color: #000;
+    background: var(--surface-hover);
+    color: var(--primary);
 }
 
 .active {
-    background: #000 !important;
+    background: var(--primary) !important;
     color: #fff !important;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(149, 48, 78, 0.2);
 }
 
 .footer {
@@ -92,7 +86,8 @@
 }
 
 .user:hover {
-    background: #eee;
+    background: var(--tertiary);
+    opacity: 0.9;
 }
 
 .userInfo {
@@ -102,7 +97,7 @@
 .userName {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 .userSub {

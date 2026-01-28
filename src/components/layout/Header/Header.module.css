@@ -62,7 +62,7 @@
 }
 
 .iconButton:hover {
-    color: #000;
+    color: var(--primary);
 }
 
 /* Dropdown Menu - Native Feel */
@@ -100,7 +100,7 @@
     padding: 8px 12px;
     font-size: 0.75rem;
     font-weight: 700;
-    color: var(--text-muted);
+    color: var(--primary);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     border-bottom: 1px solid var(--border);
@@ -149,7 +149,7 @@
     right: 0;
     width: 6px;
     height: 6px;
-    background: #000;
+    background: var(--primary);
     border-radius: 50%;
     border: 1.5px solid var(--background);
 }

@@ -40,9 +40,13 @@ export default function Sidebar() {
             )}
             <aside className={styles.sidebar}>
                 <div className={styles.logo}>
-                    <Link href="/dashboard" className={styles.logoLink}>
-                        <span className={styles.logoText}>CAROL<span>IA</span></span>
-                    </Link>
+                    <img
+                        src="/LOGO.jpeg"
+                        alt="Sheila Araújo Logo"
+                        className={styles.logoImage}
+                        onClick={() => router.push('/dashboard')}
+                        style={{ cursor: 'pointer' }}
+                    />
                 </div>
 
                 <nav className={styles.nav}>
@@ -62,8 +66,8 @@ export default function Sidebar() {
                     <Link href="/profile" className={styles.user}>
                         <UserCircle size={28} strokeWidth={1.5} />
                         <div className={styles.userInfo}>
-                            <span className={styles.userName}>Operador Admin</span>
-                            <span className={styles.userSub}>Editar Perfil</span>
+                            <span className={styles.userName}>Sheila Araújo</span>
+                            <span className={styles.userSub}>Proprietária</span>
                         </div>
                     </Link>
                     <button onClick={handleLogout} className={styles.logoutBtn}>

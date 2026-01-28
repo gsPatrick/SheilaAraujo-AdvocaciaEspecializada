@@ -64,7 +64,7 @@ export default function Dashboard() {
   };
 
   const statCards = [
-    { label: 'Total de Contatos', value: stats.total, icon: Users, color: '#000' },
+    { label: 'Total de Contatos', value: stats.total, icon: Users, color: '#95304e' },
     { label: 'IA Operacional', value: stats.active, icon: Bot, color: '#15803d' },
     { label: 'Atendimento Manual', value: stats.inactive, icon: UserX, color: '#ef4444' },
   ];
@@ -75,7 +75,7 @@ export default function Dashboard() {
 
       <div className={styles.content}>
         <div className={styles.topSection}>
-          <h2 className={styles.heroTitle}>Visão Geral</h2>
+          <h2 className={styles.heroTitle}>Olá, Dra. Sheila!</h2>
           <p className={styles.heroText}>Monitore a Carol e intervenha em atendimentos manuais em tempo real.</p>
         </div>
 

@@ -15,7 +15,7 @@
     font-size: 2.5rem;
     font-weight: 800;
     letter-spacing: -0.05em;
-    color: #000;
+    color: var(--primary);
 }
 
 .heroText {
@@ -39,12 +39,12 @@
 
 .statCard:hover {
     transform: translateY(-4px);
-    border-color: #000;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 10px 30px var(--accent-muted);
 }
 
 .statCard.activeCard {
-    border-bottom: 4px solid #000;
+    border-bottom: 4px solid var(--primary);
 }
 
 .statContent {
@@ -65,7 +65,7 @@
     font-size: 2rem;
     font-weight: 800;
     margin-top: 4px;
-    color: #000;
+    color: var(--primary);
 }
 
 .statIcon {
@@ -76,7 +76,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
+    color: var(--primary);
 }
 
 .mainGrid {
@@ -106,15 +106,15 @@
 }
 
 .chatItem:hover {
-    border-color: #000;
-    background: var(--surface);
+    border-color: var(--primary);
+    background: var(--surface-hover);
 }
 
 .avatar {
     width: 40px;
     height: 40px;
     border-radius: 10px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
@@ -129,7 +129,7 @@
 .chatName {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 .chatSnippet {

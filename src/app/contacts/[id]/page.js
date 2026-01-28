@@ -958,7 +958,7 @@ export default function ContactDetailPage() {
                                                 <label>Profissão</label>
                                                 <input
                                                     type="text"
-                                                    value={formData.profession}
+                                                    value={formData.profession || ''}
                                                     onChange={(e) => setFormData({ ...formData, profession: e.target.value })}
                                                 />
                                             </div>
@@ -966,7 +966,7 @@ export default function ContactDetailPage() {
                                                 <label>RG (Número)</label>
                                                 <input
                                                     type="text"
-                                                    value={formData.rg_numero}
+                                                    value={formData.rg_numero || ''}
                                                     onChange={(e) => setFormData({ ...formData, rg_numero: e.target.value })}
                                                 />
                                             </div>
@@ -974,7 +974,7 @@ export default function ContactDetailPage() {
                                                 <label>RG (Emissão)</label>
                                                 <input
                                                     type="date"
-                                                    value={formData.rg_data_emissao}
+                                                    value={formData.rg_data_emissao || ''}
                                                     onChange={(e) => setFormData({ ...formData, rg_data_emissao: e.target.value })}
                                                 />
                                             </div>
@@ -982,7 +982,7 @@ export default function ContactDetailPage() {
                                                 <label>Nome da Mãe</label>
                                                 <input
                                                     type="text"
-                                                    value={formData.mother_name}
+                                                    value={formData.mother_name || ''}
                                                     onChange={(e) => setFormData({ ...formData, mother_name: e.target.value })}
                                                 />
                                             </div>

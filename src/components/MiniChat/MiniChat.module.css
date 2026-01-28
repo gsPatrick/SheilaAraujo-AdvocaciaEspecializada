@@ -13,10 +13,10 @@
     align-items: center;
     gap: 12px;
     padding: 12px 24px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 30px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 40px var(--accent-muted);
     font-weight: 600;
     font-size: 0.95rem;
     transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -31,7 +31,7 @@
     height: 500px;
     background: #fff;
     border-radius: 20px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 15px 50px var(--accent-muted);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -63,7 +63,7 @@
 .header h4 {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 .headerContent {
@@ -83,8 +83,8 @@
 }
 
 .backBtn:hover {
-    background: var(--surface);
-    color: #000;
+    background: var(--surface-hover);
+    color: var(--primary);
 }
 
 .chatTitle h4 {
@@ -170,7 +170,7 @@
     width: 40px;
     height: 40px;
     border-radius: 12px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
@@ -185,7 +185,7 @@
 .chatName {
     font-size: 0.9rem;
     font-weight: 600;
-    color: #000;
+    color: var(--primary);
 }
 
 .chatSnippet {
@@ -250,14 +250,14 @@
 }
 
 .mine .messageBubble {
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-bottom-right-radius: 4px;
 }
 
 .theirs .messageBubble {
     background: #fff;
-    color: #000;
+    color: var(--primary);
     border: 1px solid var(--border);
     border-bottom-left-radius: 4px;
 }
@@ -285,7 +285,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
