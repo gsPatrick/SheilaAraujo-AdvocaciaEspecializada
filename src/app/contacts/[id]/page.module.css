@@ -793,16 +793,25 @@
 
     .mobileTabs {
         display: flex;
+        flex-wrap: wrap;
+        /* Allow wrapping */
+        justify-content: center;
+        gap: 8px;
         background: #f1f5f9;
-        padding: 4px;
+        padding: 8px;
         border-radius: 12px;
         margin-bottom: 24px;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-        gap: 8px;
-        /* Added gap for better separation */
+        height: auto;
+        overflow-x: visible;
+        /* Disable scroll */
     }
+
+    .statusSection,
+    .formGrid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Cleaned up orphaned properties */
 
     .mobileTabs::-webkit-scrollbar {
         display: none;
@@ -810,8 +819,8 @@
     }
 
     .tabBtn {
-        flex: 0 0 auto;
-        /* Prevent shrinking */
+        flex: 1 0 auto;
+        /* Prevent shrinking but allow growing */
         border: none;
         background: transparent;
         padding: 10px;
