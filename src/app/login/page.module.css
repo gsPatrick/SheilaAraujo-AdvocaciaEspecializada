@@ -11,7 +11,8 @@
 }
 
 .visualPanel {
-    flex: 1.2;
+    flex: 1;
+    /* Adjusted for 50/50 split */
     position: relative;
     display: flex;
     align-items: center;
@@ -35,6 +36,24 @@
     filter: blur(4px);
     /* Light blur */
     z-index: 1;
+}
+
+.formPanel {
+    flex: 1;
+    /* Adjusted for 50/50 split */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    padding: 60px;
+    /* Increased padding */
+    z-index: 10;
+}
+
+.formWrapper {
+    width: 100%;
+    max-width: 440px;
+    /* Slightly wider */
 }
 
 .brandOverlay {
