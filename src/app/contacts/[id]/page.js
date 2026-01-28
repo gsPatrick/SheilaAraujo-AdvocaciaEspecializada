@@ -734,7 +734,21 @@ export default function ContactDetailPage() {
                                             ) : (
                                                 <div className={styles.tiStatusCard}>
                                                     <div className={styles.tiBadge}>VINCULADO AO TI</div>
-                                                    <p>ID: {contact.tramitacaoCustomerId}</p>
+
+                                                    <div className={styles.tiDetails}>
+                                                        <div className={styles.infoRow}>
+                                                            <span className={styles.infoLabel}>Nome no TI</span>
+                                                            <span className={styles.infoValue}>{contact.contactName}</span>
+                                                        </div>
+                                                        <div className={styles.infoRow}>
+                                                            <span className={styles.infoLabel}>Código TI</span>
+                                                            <span className={styles.infoValue}>{contact.tramitacaoCustomerId}</span>
+                                                        </div>
+                                                        <div className={styles.infoRow}>
+                                                            <span className={styles.infoLabel}>CPF</span>
+                                                            <span className={styles.infoValue}>{contact.cpf}</span>
+                                                        </div>
+                                                    </div>
                                                     <div className={styles.btnList}>
                                                         <button onClick={() => handleOpenNoteModal()} className={styles.subActionBtn}>
                                                             <ClipboardList size={16} />
