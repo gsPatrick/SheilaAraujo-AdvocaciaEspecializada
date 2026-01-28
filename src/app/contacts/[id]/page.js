@@ -52,6 +52,7 @@ export default function ContactDetailPage() {
                     lawyerResponse: response.data.lawyerResponse || '',
                     triageStatus: response.data.triageStatus || 'em_andamento'
                 });
+                if (response.data.cpf) setSearchCpf(response.data.cpf);
             } catch (error) {
                 console.error('Error fetching contact:', error);
             } finally {
@@ -75,6 +76,7 @@ export default function ContactDetailPage() {
                     lawyerResponse: updatedChat.lawyerResponse || '',
                     triageStatus: updatedChat.triageStatus || 'em_andamento'
                 });
+                if (updatedChat.cpf && !searchCpf) setSearchCpf(updatedChat.cpf);
             }
         });
 
