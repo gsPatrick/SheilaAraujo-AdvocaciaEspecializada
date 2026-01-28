@@ -47,7 +47,7 @@
 
 .alertList {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 24px;
 }
 
@@ -225,6 +225,8 @@
         flex-direction: column;
         gap: 16px;
         padding: 20px;
+        min-width: 0;
+        /* Prevents flex items from overflowing container */
     }
 
     .alertHeader {

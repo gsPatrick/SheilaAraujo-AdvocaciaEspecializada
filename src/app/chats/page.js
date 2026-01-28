@@ -1,15 +1,14 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
 import Header from '@/components/layout/Header/Header';
-import Card from '@/components/Card/Card';
 import styles from './page.module.css';
-import { ArrowLeft, Send, User, Bot, Phone, MessageSquare, ExternalLink } from 'lucide-react';
+import { ArrowLeft, Send, User, Bot, Phone, MessageSquare } from 'lucide-react';
 import { useMobile } from '@/hooks/useMobile';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function ChatsPage() {
+function ChatsContent() {
     const [chats, setChats] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null);
     const [messages, setMessages] = useState([]);
@@ -26,7 +25,6 @@ export default function ChatsPage() {
     const [triageStatus, setTriageStatus] = useState('');
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const [totalItems, setTotalItems] = useState(0);
 
     useEffect(() => {
         const fetchChats = async () => {
@@ -42,7 +40,6 @@ export default function ChatsPage() {
                 const response = await axios.get('https://geral-sheila-api.r954jc.easypanel.host/api/chats', { params });
                 setChats(response.data.data || []);
                 setTotalPages(response.data.pages || 1);
-                setTotalItems(response.data.total || 0);
             } catch (error) {
                 console.error('Error fetching chats:', error);
             } finally {
@@ -80,7 +77,7 @@ export default function ChatsPage() {
         });
 
         return () => socketRef.current.disconnect();
-    }, [selectedChat]);
+    }, [selectedChat, initialChatId]);
 
     useEffect(() => {
         if (selectedChat) {
@@ -315,5 +312,13 @@ export default function ChatsPage() {
                 )}
             </div>
         </div>
+    );
+}
+
+export default function ChatsPage() {
+    return (
+        <Suspense fallback={<div className="loading">Carregando chats...</div>}>
+            <ChatsContent />
+        </Suspense>
     );
 }

@@ -193,6 +193,11 @@
         gap: 24px;
     }
 
+    .mainGrid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
     .statCard {
         padding: 20px !important;
         /* Compact but clear */
@@ -200,6 +205,7 @@
 
     .chatItem {
         padding: 20px;
-        /* Touch target optimized */
+        min-width: 0;
+        /* Prevents flex overflow */
     }
 }

@@ -797,10 +797,21 @@
         padding: 4px;
         border-radius: 12px;
         margin-bottom: 24px;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+        gap: 8px;
+        /* Added gap for better separation */
+    }
+
+    .mobileTabs::-webkit-scrollbar {
+        display: none;
+        /* Hide scrollbar for cleaner look */
     }
 
     .tabBtn {
-        flex: 1;
+        flex: 0 0 auto;
+        /* Prevent shrinking */
         border: none;
         background: transparent;
         padding: 10px;

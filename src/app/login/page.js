@@ -42,8 +42,7 @@ export default function LoginPage() {
             {/* Left Panel - Visual/Brand */}
             <div className={styles.visualPanel}>
                 <div className={styles.brandOverlay}>
-                    <h1 className={styles.largeLogo}>CAROL<span>IA</span></h1>
-                    <div className={styles.divider} />
+                    {/* <h1 className={styles.largeLogo}>CAROL<span>IA</span></h1> */}
                     <p className={styles.brandSlogan}>Assistência de Inteligência Jurídica Especializada</p>
                 </div>
             </div>
@@ -52,6 +51,9 @@ export default function LoginPage() {
             <div className={styles.formPanel}>
                 <div className={styles.formWrapper}>
                     <div className={styles.header}>
+                        <div className={styles.logoWrapper}>
+                            <img src="/LOGO.jpeg" alt="Logo do Sistema" className={styles.systemLogo} />
+                        </div>
                         <h2 className={styles.title}>Bem-vinda, Carol</h2>
                         <p className={styles.subtitle}>Acesse o painel operacional para gerenciar seus protocolos.</p>
                     </div>
