@@ -183,233 +183,6 @@ export default function ContactDetailPage() {
         </div>
     );
 
-    const DossierContent = () => (
-        <>
-            <div className={styles.leftCol}>
-                <Card className={styles.profileCard}>
-                    {/* ... Profile Card Content ... */}
-                    <div className={styles.profileHeader}>
-                        <div className={styles.largeAvatar}>
-                            {(formData.contactName || 'U').charAt(0).toUpperCase()}
-                        </div>
-                        <div className={styles.profileTitles}>
-                            <h1>{formData.contactName || 'Usuário Sem Nome'}</h1>
-                            <span>Cadastrado em {new Date(contact.createdAt).toLocaleDateString()}</span>
-                        </div>
-                    </div>
-
-                    <div className={styles.statusSection}>
-                        <div className={styles.statusItem}>
-                            <div className={`${styles.statusIcon} ${contact.tramitacaoCustomerId ? styles.success : styles.warning}`}>
-                                {contact.tramitacaoCustomerId ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
-                            </div>
-                            <div className={styles.statusMeta}>
-                                <p>Vínculo Jurídico</p>
-                                <h3>{contact.tramitacaoCustomerId ? 'Sincronizado' : 'Aguardando Sincronia'}</h3>
-                            </div>
-                        </div>
-                        <div className={styles.statusItem}>
-                            <div className={styles.statusIcon}>
-                                <RefreshCw size={16} />
-                            </div>
-                            <div className={styles.statusMeta}>
-                                <p>Última Sincronia</p>
-                                <h3>{contact.lastSyncAt ? new Date(contact.lastSyncAt).toLocaleString() : 'Nunca sincronizado'}</h3>
-                            </div>
-                        </div>
-                    </div>
-                </Card>
-
-                <Card title="Informações Coletadas" subtitle="Dados extraídos das interações e preenchidos manualmente." className={styles.mt}>
-                    <div className={styles.form}>
-                        <div className={styles.formGrid}>
-                            <div className={styles.inputGroup}>
-                                <label>Nome Completo</label>
-                                <input
-                                    type="text"
-                                    value={formData.contactName}
-                                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
-                                />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>E-mail Principal</label>
-                                <input
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>CPF / Documento</label>
-                                <input
-                                    type="text"
-                                    value={formData.cpf}
-                                    onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
-                                />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>Área Jurídica</label>
-                                <select
-                                    value={formData.area}
-                                    onChange={(e) => setFormData({ ...formData, area: e.target.value })}
-                                >
-                                    <option value="">Não definido</option>
-                                    <option value="previdenciario">Previdenciário</option>
-                                    <option value="trabalhista">Trabalhista</option>
-                                    <option value="outro">Outro</option>
-                                </select>
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>Possui Advogado?</label>
-                                <select
-                                    value={formData.hasLawyer === null ? "" : formData.hasLawyer}
-                                    onChange={(e) => setFormData({ ...formData, hasLawyer: e.target.value === "" ? null : e.target.value === "true" })}
-                                >
-                                    <option value="">Não definido</option>
-                                    <option value="true">Sim</option>
-                                    <option value="false">Não</option>
-                                </select>
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>Resposta sobre Advogado</label>
-                                <input
-                                    type="text"
-                                    value={formData.lawyerResponse}
-                                    onChange={(e) => setFormData({ ...formData, lawyerResponse: e.target.value })}
-                                    placeholder="Frase dita pelo cliente..."
-                                />
-                            </div>
-                            <div className={styles.inputGroup}>
-                                <label>Status da Triagem</label>
-                                <select
-                                    value={formData.triageStatus}
-                                    onChange={(e) => setFormData({ ...formData, triageStatus: e.target.value })}
-                                >
-                                    <option value="em_andamento">Em Andamento</option>
-                                    <option value="finalizada">Finalizada</option>
-                                    <option value="encerrada_etica">Encerrada (Ética)</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className={styles.inputGroupFull}>
-                            <label>Observações e Contexto (Resumo da Carol)</label>
-                            <textarea
-                                rows={6}
-                                value={formData.notes}
-                                onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                            />
-                        </div>
-                        <div className={styles.btnRow}>
-                            <button onClick={handleSave} className={styles.saveBtn} disabled={saving}>
-                                <Save size={18} />
-                                {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
-                            </button>
-                            {contact.tramitacaoCustomerId && (
-                                <button onClick={handleUpdateTI} className={styles.tiBtn} disabled={syncing}>
-                                    <RefreshCw size={18} />
-                                    {syncing ? 'Sincronizando...' : 'Atualizar no TI'}
-                                </button>
-                            )}
-                        </div>
-                    </div>
-                </Card>
-
-
-                {/* Actions moved here for mobile flow if dossier tab active, but in desktop it is right col. 
-                    Actually, let's keep Actions in rightCol for desktop, but for mobile we might need duplicate or shared components.
-                    For simplicity in this refactor, I will just render rightCol's logical Actions here if useMobile */}
-
-                {isMobile && <ActionsContent />}
-            </div>
-        </>
-    );
-
-    const ActionsContent = () => (
-        <>
-            <Card title="Ações da Integração" subtitle="Comandos jurídicos especializados." className={styles.mt}>
-                <div className={styles.actionsGrid}>
-                    {!contact.tramitacaoCustomerId ? (
-                        <>
-                            <div className={styles.searchBox}>
-                                <input
-                                    type="text"
-                                    placeholder="Buscar CPF/CNPJ no TI..."
-                                    value={searchCpf}
-                                    onChange={(e) => setSearchCpf(e.target.value)}
-                                />
-                                <button onClick={handleSearchTI} disabled={syncing}>
-                                    <RefreshCw size={14} className={syncing ? styles.spin : ''} />
-                                </button>
-                            </div>
-
-                            {searchResults && (
-                                <div className={styles.searchResults}>
-                                    {searchResults.length > 0 ? (
-                                        searchResults.map(res => (
-                                            <div key={res.id} className={styles.searchResultItem}>
-                                                <div className={styles.resInfo}>
-                                                    <strong>{res.name}</strong>
-                                                    <span>{res.cpf_cnpj}</span>
-                                                </div>
-                                                <button onClick={() => handleVincular(res.uuid)}>Vincular</button>
-                                            </div>
-                                        ))
-                                    ) : <p className={styles.noResults}>Nenhum cliente encontrado com este documento.</p>}
-                                </div>
-                            )}
-
-                            <button onClick={handleSyncToTI} className={styles.actionBtnLarge} disabled={syncing}>
-                                <Gavel size={20} />
-                                <div>
-                                    <strong>Finalizar Triagem e Cadastrar no TI</strong>
-                                    <span>Inicia o monitoramento oficial deste cliente.</span>
-                                </div>
-                            </button>
-                        </>
-                    ) : (
-                        <div className={styles.tiStatusCard}>
-                            <div className={styles.tiBadge}>VINCULADO AO TI</div>
-                            <p>ID: {contact.tramitacaoCustomerId}</p>
-                            <div className={styles.btnList}>
-                                <button onClick={handleSaveNote} className={styles.subActionBtn}>
-                                    <ClipboardList size={16} />
-                                    Salvar Resumo como Nota
-                                </button>
-                                <a
-                                    href={`https://app.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`}
-                                    target="_blank"
-                                    className={styles.subActionBtn}
-                                >
-                                    <ExternalLink size={16} />
-                                    Abrir no Portal TI
-                                </a>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </Card>
-
-            <Card title="Guia Didático" className={styles.mt}>
-                <div className={styles.didactic}>
-                    <div className={styles.guideItem}>
-                        <h4>O que é a Sincronização?</h4>
-                        <p>É o processo de enviar os dados coletados (CPF, E-mail) para o portal judiciário, permitindo o acompanhamento automático de processos.</p>
-                    </div>
-                    <div className={styles.guideItem}>
-                        <h4>Por que cadastrar no TI?</h4>
-                        <p>Ao finalizar a triagem, Carol envia as informações filtradas para o TI, onde os prazos processuais serão monitorados legalmente.</p>
-                    </div>
-                </div>
-            </Card>
-        </>
-    );
-
-    const ChatContent = () => (
-        <Card title="Interação Direta" subtitle="Conversa ativa em tempo real.">
-            <MiniChatFragment chatId={id} />
-        </Card>
-    );
-
     return (
         <div className={styles.container}>
             <Header title="Dossiê de Contato" />
@@ -426,7 +199,212 @@ export default function ContactDetailPage() {
                     {/* Mobile Logic */}
                     {isMobile ? (
                         <>
-                            {activeTab === 'dossier' && <DossierContent />}
+                            {activeTab === 'dossier' && (
+                                <div className={styles.leftCol}>
+                                    <Card className={styles.profileCard}>
+                                        <div className={styles.profileHeader}>
+                                            <div className={styles.largeAvatar}>
+                                                {(formData.contactName || 'U').charAt(0).toUpperCase()}
+                                            </div>
+                                            <div className={styles.profileTitles}>
+                                                <h1>{formData.contactName || 'Usuário Sem Nome'}</h1>
+                                                <span>Cadastrado em {new Date(contact.createdAt).toLocaleDateString()}</span>
+                                            </div>
+                                        </div>
+
+                                        <div className={styles.statusSection}>
+                                            <div className={styles.statusItem}>
+                                                <div className={`${styles.statusIcon} ${contact.tramitacaoCustomerId ? styles.success : styles.warning}`}>
+                                                    {contact.tramitacaoCustomerId ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
+                                                </div>
+                                                <div className={styles.statusMeta}>
+                                                    <p>Vínculo Jurídico</p>
+                                                    <h3>{contact.tramitacaoCustomerId ? 'Sincronizado' : 'Aguardando Sincronia'}</h3>
+                                                </div>
+                                            </div>
+                                            <div className={styles.statusItem}>
+                                                <div className={styles.statusIcon}>
+                                                    <RefreshCw size={16} />
+                                                </div>
+                                                <div className={styles.statusMeta}>
+                                                    <p>Última Sincronia</p>
+                                                    <h3>{contact.lastSyncAt ? new Date(contact.lastSyncAt).toLocaleString() : 'Nunca sincronizado'}</h3>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+
+                                    <Card title="Informações Coletadas" subtitle="Dados extraídos das interações e preenchidos manualmente." className={styles.mt}>
+                                        <div className={styles.form}>
+                                            <div className={styles.formGrid}>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Nome Completo</label>
+                                                    <input
+                                                        type="text"
+                                                        value={formData.contactName}
+                                                        onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                                                    />
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>E-mail Principal</label>
+                                                    <input
+                                                        type="email"
+                                                        value={formData.email}
+                                                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                    />
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>CPF / Documento</label>
+                                                    <input
+                                                        type="text"
+                                                        value={formData.cpf}
+                                                        onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+                                                    />
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Área Jurídica</label>
+                                                    <select
+                                                        value={formData.area}
+                                                        onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                                                    >
+                                                        <option value="">Não definido</option>
+                                                        <option value="previdenciario">Previdenciário</option>
+                                                        <option value="trabalhista">Trabalhista</option>
+                                                        <option value="outro">Outro</option>
+                                                    </select>
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Possui Advogado?</label>
+                                                    <select
+                                                        value={formData.hasLawyer === null ? "" : formData.hasLawyer}
+                                                        onChange={(e) => setFormData({ ...formData, hasLawyer: e.target.value === "" ? null : e.target.value === "true" })}
+                                                    >
+                                                        <option value="">Não definido</option>
+                                                        <option value="true">Sim</option>
+                                                        <option value="false">Não</option>
+                                                    </select>
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Resposta sobre Advogado</label>
+                                                    <input
+                                                        type="text"
+                                                        value={formData.lawyerResponse}
+                                                        onChange={(e) => setFormData({ ...formData, lawyerResponse: e.target.value })}
+                                                        placeholder="Frase dita pelo cliente..."
+                                                    />
+                                                </div>
+                                                <div className={styles.inputGroup}>
+                                                    <label>Status da Triagem</label>
+                                                    <select
+                                                        value={formData.triageStatus}
+                                                        onChange={(e) => setFormData({ ...formData, triageStatus: e.target.value })}
+                                                    >
+                                                        <option value="em_andamento">Em Andamento</option>
+                                                        <option value="finalizada">Finalizada</option>
+                                                        <option value="encerrada_etica">Encerrada (Ética)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div className={styles.inputGroupFull}>
+                                                <label>Observações e Contexto (Resumo da Carol)</label>
+                                                <textarea
+                                                    rows={6}
+                                                    value={formData.notes}
+                                                    onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.btnRow}>
+                                                <button onClick={handleSave} className={styles.saveBtn} disabled={saving}>
+                                                    <Save size={18} />
+                                                    {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
+                                                </button>
+                                                {contact.tramitacaoCustomerId && (
+                                                    <button onClick={handleUpdateTI} className={styles.tiBtn} disabled={syncing}>
+                                                        <RefreshCw size={18} />
+                                                        {syncing ? 'Sincronizando...' : 'Atualizar no TI'}
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </Card>
+
+                                    <Card title="Ações da Integração" subtitle="Comandos jurídicos especializados." className={styles.mt}>
+                                        <div className={styles.actionsGrid}>
+                                            {!contact.tramitacaoCustomerId ? (
+                                                <>
+                                                    <div className={styles.searchBox}>
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Buscar CPF/CNPJ no TI..."
+                                                            value={searchCpf}
+                                                            onChange={(e) => setSearchCpf(e.target.value)}
+                                                        />
+                                                        <button onClick={handleSearchTI} disabled={syncing}>
+                                                            <RefreshCw size={14} className={syncing ? styles.spin : ''} />
+                                                        </button>
+                                                    </div>
+
+                                                    {searchResults && (
+                                                        <div className={styles.searchResults}>
+                                                            {searchResults.length > 0 ? (
+                                                                searchResults.map(res => (
+                                                                    <div key={res.id} className={styles.searchResultItem}>
+                                                                        <div className={styles.resInfo}>
+                                                                            <strong>{res.name}</strong>
+                                                                            <span>{res.cpf_cnpj}</span>
+                                                                        </div>
+                                                                        <button onClick={() => handleVincular(res.uuid)}>Vincular</button>
+                                                                    </div>
+                                                                ))
+                                                            ) : <p className={styles.noResults}>Nenhum cliente encontrado com este documento.</p>}
+                                                        </div>
+                                                    )}
+
+                                                    <button onClick={handleSyncToTI} className={styles.actionBtnLarge} disabled={syncing}>
+                                                        <Gavel size={20} />
+                                                        <div>
+                                                            <strong>Finalizar Triagem e Cadastrar no TI</strong>
+                                                            <span>Inicia o monitoramento oficial deste cliente.</span>
+                                                        </div>
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <div className={styles.tiStatusCard}>
+                                                    <div className={styles.tiBadge}>VINCULADO AO TI</div>
+                                                    <p>ID: {contact.tramitacaoCustomerId}</p>
+                                                    <div className={styles.btnList}>
+                                                        <button onClick={handleSaveNote} className={styles.subActionBtn}>
+                                                            <ClipboardList size={16} />
+                                                            Salvar Resumo como Nota
+                                                        </button>
+                                                        <a
+                                                            href={`https://app.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`}
+                                                            target="_blank"
+                                                            className={styles.subActionBtn}
+                                                        >
+                                                            <ExternalLink size={16} />
+                                                            Abrir no Portal TI
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </Card>
+
+                                    <Card title="Guia Didático" className={styles.mt}>
+                                        <div className={styles.didactic}>
+                                            <div className={styles.guideItem}>
+                                                <h4>O que é a Sincronização?</h4>
+                                                <p>É o processo de enviar os dados coletados (CPF, E-mail) para o portal judiciário, permitindo o acompanhamento automático de processos.</p>
+                                            </div>
+                                            <div className={styles.guideItem}>
+                                                <h4>Por que cadastrar no TI?</h4>
+                                                <p>Ao finalizar a triagem, Carol envia as informações filtradas para o TI, onde os prazos processuais serão monitorados legalmente.</p>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                </div>
+                            )}
                             {activeTab === 'chat' && (
                                 <div className={styles.mobileChatWrapper}>
                                     <div className={styles.mobileChatHeader}>
@@ -442,16 +420,213 @@ export default function ContactDetailPage() {
                     ) : (
                         /* Desktop Logic (Existing) */
                         <>
-                            <DossierContent />
-                            {/* Note: DossierContent needs slight refactor to NOT include ActionsContent if Desktop, 
-                               or we just render ActionsContent in the right col for desktop. 
-                               The previous structure had leftCol and rightCol. 
-                               My DossierContent component above includes leftCol div. 
-                               I should strip the wrapping divs from components and let the parent grid handle it.
-                            */}
+                            <div className={styles.leftCol}>
+                                <Card className={styles.profileCard}>
+                                    <div className={styles.profileHeader}>
+                                        <div className={styles.largeAvatar}>
+                                            {(formData.contactName || 'U').charAt(0).toUpperCase()}
+                                        </div>
+                                        <div className={styles.profileTitles}>
+                                            <h1>{formData.contactName || 'Usuário Sem Nome'}</h1>
+                                            <span>Cadastrado em {new Date(contact.createdAt).toLocaleDateString()}</span>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.statusSection}>
+                                        <div className={styles.statusItem}>
+                                            <div className={`${styles.statusIcon} ${contact.tramitacaoCustomerId ? styles.success : styles.warning}`}>
+                                                {contact.tramitacaoCustomerId ? <CheckCircle2 size={16} /> : <AlertCircle size={16} />}
+                                            </div>
+                                            <div className={styles.statusMeta}>
+                                                <p>Vínculo Jurídico</p>
+                                                <h3>{contact.tramitacaoCustomerId ? 'Sincronizado' : 'Aguardando Sincronia'}</h3>
+                                            </div>
+                                        </div>
+                                        <div className={styles.statusItem}>
+                                            <div className={styles.statusIcon}>
+                                                <RefreshCw size={16} />
+                                            </div>
+                                            <div className={styles.statusMeta}>
+                                                <p>Última Sincronia</p>
+                                                <h3>{contact.lastSyncAt ? new Date(contact.lastSyncAt).toLocaleString() : 'Nunca sincronizado'}</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Card>
+
+                                <Card title="Informações Coletadas" subtitle="Dados extraídos das interações e preenchidos manualmente." className={styles.mt}>
+                                    <div className={styles.form}>
+                                        <div className={styles.formGrid}>
+                                            <div className={styles.inputGroup}>
+                                                <label>Nome Completo</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.contactName}
+                                                    onChange={(e) => setFormData({ ...formData, contactName: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>E-mail Principal</label>
+                                                <input
+                                                    type="email"
+                                                    value={formData.email}
+                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>CPF / Documento</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.cpf}
+                                                    onChange={(e) => setFormData({ ...formData, cpf: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Área Jurídica</label>
+                                                <select
+                                                    value={formData.area}
+                                                    onChange={(e) => setFormData({ ...formData, area: e.target.value })}
+                                                >
+                                                    <option value="">Não definido</option>
+                                                    <option value="previdenciario">Previdenciário</option>
+                                                    <option value="trabalhista">Trabalhista</option>
+                                                    <option value="outro">Outro</option>
+                                                </select>
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Possui Advogado?</label>
+                                                <select
+                                                    value={formData.hasLawyer === null ? "" : formData.hasLawyer}
+                                                    onChange={(e) => setFormData({ ...formData, hasLawyer: e.target.value === "" ? null : e.target.value === "true" })}
+                                                >
+                                                    <option value="">Não definido</option>
+                                                    <option value="true">Sim</option>
+                                                    <option value="false">Não</option>
+                                                </select>
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Resposta sobre Advogado</label>
+                                                <input
+                                                    type="text"
+                                                    value={formData.lawyerResponse}
+                                                    onChange={(e) => setFormData({ ...formData, lawyerResponse: e.target.value })}
+                                                    placeholder="Frase dita pelo cliente..."
+                                                />
+                                            </div>
+                                            <div className={styles.inputGroup}>
+                                                <label>Status da Triagem</label>
+                                                <select
+                                                    value={formData.triageStatus}
+                                                    onChange={(e) => setFormData({ ...formData, triageStatus: e.target.value })}
+                                                >
+                                                    <option value="em_andamento">Em Andamento</option>
+                                                    <option value="finalizada">Finalizada</option>
+                                                    <option value="encerrada_etica">Encerrada (Ética)</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div className={styles.inputGroupFull}>
+                                            <label>Observações e Contexto (Resumo da Carol)</label>
+                                            <textarea
+                                                rows={6}
+                                                value={formData.notes}
+                                                onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
+                                            />
+                                        </div>
+                                        <div className={styles.btnRow}>
+                                            <button onClick={handleSave} className={styles.saveBtn} disabled={saving}>
+                                                <Save size={18} />
+                                                {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
+                                            </button>
+                                            {contact.tramitacaoCustomerId && (
+                                                <button onClick={handleUpdateTI} className={styles.tiBtn} disabled={syncing}>
+                                                    <RefreshCw size={18} />
+                                                    {syncing ? 'Sincronizando...' : 'Atualizar no TI'}
+                                                </button>
+                                            )}
+                                        </div>
+                                    </div>
+                                </Card>
+                            </div>
                             <div className={styles.rightCol}>
-                                <ChatContent />
-                                <ActionsContent />
+                                <Card title="Interação Direta" subtitle="Conversa ativa em tempo real.">
+                                    <MiniChatFragment chatId={id} />
+                                </Card>
+                                <Card title="Ações da Integração" subtitle="Comandos jurídicos especializados." className={styles.mt}>
+                                    <div className={styles.actionsGrid}>
+                                        {!contact.tramitacaoCustomerId ? (
+                                            <>
+                                                <div className={styles.searchBox}>
+                                                    <input
+                                                        type="text"
+                                                        placeholder="Buscar CPF/CNPJ no TI..."
+                                                        value={searchCpf}
+                                                        onChange={(e) => setSearchCpf(e.target.value)}
+                                                    />
+                                                    <button onClick={handleSearchTI} disabled={syncing}>
+                                                        <RefreshCw size={14} className={syncing ? styles.spin : ''} />
+                                                    </button>
+                                                </div>
+
+                                                {searchResults && (
+                                                    <div className={styles.searchResults}>
+                                                        {searchResults.length > 0 ? (
+                                                            searchResults.map(res => (
+                                                                <div key={res.id} className={styles.searchResultItem}>
+                                                                    <div className={styles.resInfo}>
+                                                                        <strong>{res.name}</strong>
+                                                                        <span>{res.cpf_cnpj}</span>
+                                                                    </div>
+                                                                    <button onClick={() => handleVincular(res.uuid)}>Vincular</button>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className={styles.noResults}>Nenhum cliente encontrado com este documento.</p>}
+                                                    </div>
+                                                )}
+
+                                                <button onClick={handleSyncToTI} className={styles.actionBtnLarge} disabled={syncing}>
+                                                    <Gavel size={20} />
+                                                    <div>
+                                                        <strong>Finalizar Triagem e Cadastrar no TI</strong>
+                                                        <span>Inicia o monitoramento oficial deste cliente.</span>
+                                                    </div>
+                                                </button>
+                                            </>
+                                        ) : (
+                                            <div className={styles.tiStatusCard}>
+                                                <div className={styles.tiBadge}>VINCULADO AO TI</div>
+                                                <p>ID: {contact.tramitacaoCustomerId}</p>
+                                                <div className={styles.btnList}>
+                                                    <button onClick={handleSaveNote} className={styles.subActionBtn}>
+                                                        <ClipboardList size={16} />
+                                                        Salvar Resumo como Nota
+                                                    </button>
+                                                    <a
+                                                        href={`https://app.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`}
+                                                        target="_blank"
+                                                        className={styles.subActionBtn}
+                                                    >
+                                                        <ExternalLink size={16} />
+                                                        Abrir no Portal TI
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                </Card>
+
+                                <Card title="Guia Didático" className={styles.mt}>
+                                    <div className={styles.didactic}>
+                                        <div className={styles.guideItem}>
+                                            <h4>O que é a Sincronização?</h4>
+                                            <p>É o processo de enviar os dados coletados (CPF, E-mail) para o portal judiciário, permitindo o acompanhamento automático de processos.</p>
+                                        </div>
+                                        <div className={styles.guideItem}>
+                                            <h4>Por que cadastrar no TI?</h4>
+                                            <p>Ao finalizar a triagem, Carol envia as informações filtradas para o TI, onde os prazos processuais serão monitorados legalmente.</p>
+                                        </div>
+                                    </div>
+                                </Card>
                             </div>
                         </>
                     )}
