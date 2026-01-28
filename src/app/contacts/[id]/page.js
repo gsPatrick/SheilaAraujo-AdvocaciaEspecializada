@@ -1062,9 +1062,7 @@ export default function ContactDetailPage() {
                                                 <Save size={18} />
                                                 {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
                                             </button>
-                                            {contact.tramitacaoCustomerId && (
 
-                                            )}
                                         </div>
                                     </div>
                                 </Card>
