@@ -77,7 +77,7 @@
     width: 220px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 10px 40px var(--accent-muted);
     border: 1px solid var(--border);
     padding: 8px;
     z-index: 100;
@@ -113,7 +113,7 @@
     gap: 12px;
     padding: 12px;
     border-radius: 8px;
-    color: #000;
+    color: var(--primary);
     font-size: 0.9rem;
     font-weight: 600;
     text-decoration: none;

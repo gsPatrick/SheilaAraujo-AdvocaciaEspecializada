@@ -52,11 +52,11 @@
 }
 
 .filterGroup select:focus {
-    border-color: #000;
+    border-color: var(--primary);
 }
 
 .syncBtn {
-    background: #000;
+    background: var(--primary);
     color: #fff;
     padding: 10px 20px;
     border-radius: 8px;
@@ -71,7 +71,7 @@
 }
 
 .syncBtn:hover:not(:disabled) {
-    background: #333;
+    opacity: 0.9;
 }
 
 .syncBtn:disabled {
@@ -104,8 +104,8 @@
 }
 
 .searchContainer input:focus {
-    border-color: #000;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 4px 20px var(--accent-muted);
 }
 
 .grid {
@@ -129,8 +129,8 @@
 
 .contactCard:hover {
     transform: translateY(-4px);
-    border-color: #000;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border-color: var(--primary);
+    box-shadow: 0 10px 20px var(--accent-muted);
 }
 
 .cardHeader {
@@ -151,7 +151,7 @@
     justify-content: center;
     font-weight: 700;
     font-size: 1.25rem;
-    color: #000;
+    color: var(--primary);
 }
 
 .badge {
@@ -180,7 +180,7 @@
 .contactName {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
     margin-bottom: 12px;
     letter-spacing: -0.02em;
 }
@@ -208,7 +208,7 @@
     justify-content: space-between;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #000;
+    color: var(--primary);
     opacity: 0.6;
 }
 
@@ -225,7 +225,7 @@
 
 .empty h3 {
     margin-top: 20px;
-    color: #000;
+    color: var(--primary);
 }
 
 .pagination {
@@ -247,7 +247,7 @@
 }
 
 .pageBtn:hover:not(:disabled) {
-    border-color: #000;
+    border-color: var(--primary);
     background: var(--surface);
 }
 
@@ -303,6 +303,7 @@
         font-size: 0.85rem;
     }
 }
+
 /* Badges Style */
 .badges {
     display: flex;
@@ -336,6 +337,6 @@
 }
 
 .finishedTriage {
-    background: #000;
+    background: var(--primary);
     color: #fff;
 }

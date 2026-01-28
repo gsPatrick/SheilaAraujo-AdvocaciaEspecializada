@@ -163,6 +163,7 @@ export default function SettingsPage() {
             fields: [
                 { key: 'openAiKey', label: 'Chave de API OpenAI', type: 'password', desc: 'Sua chave secreta da OpenAI (sk-...)' },
                 { key: 'mainPrompt', label: 'Instrução Mestre (Prompt)', type: 'textarea', desc: 'Defina a personalidade e as regras de atendimento da IA.' },
+                { key: 'aiReactivationChar', label: 'Caractere de Reativação (WhatsApp)', type: 'text', desc: 'Caractere único (ex: #, !, .) que o cliente envia para ligar o robô novamente.' },
             ]
         },
         {

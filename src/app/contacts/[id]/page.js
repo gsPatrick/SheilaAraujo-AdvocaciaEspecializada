@@ -15,6 +15,19 @@ import MiniChatFragment from './MiniChatFragment';
 
 import { useMobile } from '@/hooks/useMobile';
 
+const slugify = (text) => {
+    if (!text) return '';
+    return text
+        .toString()
+        .toLowerCase()
+        .trim()
+        .normalize('NFD') // separate accented characters
+        .replace(/[\u0300-\u036f]/g, '') // remove accents
+        .replace(/[^\w\s-]/g, '') // remove special characters
+        .replace(/[\s_-]+/g, '-') // replace space and underscore with hyphen
+        .replace(/^-+|-+$/g, ''); // remove leading/trailing hyphen
+};
+
 export default function ContactDetailPage() {
     const { id } = useParams();
     const router = useRouter();
@@ -720,7 +733,7 @@ export default function ContactDetailPage() {
                                                             Adicionar Nota Jurídica
                                                         </button>
                                                         <a
-                                                            href={`https://v3.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`}
+                                                            href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName)}`}
                                                             target="_blank"
                                                             className={styles.subActionBtn}
                                                         >

@@ -20,7 +20,7 @@
 }
 
 .backBtn:hover {
-    color: #000;
+    color: var(--primary);
 }
 
 .grid {
@@ -44,7 +44,7 @@
     width: 64px;
     height: 64px;
     border-radius: 20px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
@@ -57,7 +57,7 @@
     font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-    color: #000;
+    color: var(--primary);
 }
 
 .profileTitles span {
@@ -109,7 +109,7 @@
 .statusMeta h3 {
     font-size: 0.95rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 
@@ -135,7 +135,7 @@
 .inputGroupFull label {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 .inputGroupFull input,
@@ -154,7 +154,7 @@
 
 .inputGroupFull input:focus,
 .inputGroupFull textarea:focus {
-    border-color: #000;
+    border-color: var(--primary);
     background: #fff;
 }
 
@@ -167,7 +167,7 @@
 .inputGroup label {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
 }
 
 .inputGroup input,
@@ -186,7 +186,7 @@
 .inputGroup input:focus,
 .inputGroup select:focus,
 .inputGroup textarea:focus {
-    border-color: #000;
+    border-color: var(--primary);
     background: #fff;
 }
 
@@ -213,7 +213,7 @@
     justify-content: center;
     gap: 10px;
     padding: 14px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 10px;
     font-weight: 600;
@@ -228,8 +228,8 @@
     gap: 10px;
     padding: 14px 20px;
     background: #fff;
-    border: 1px solid #000;
-    color: #000;
+    border: 1px solid var(--primary);
+    color: var(--primary);
     border-radius: 10px;
     font-weight: 600;
     cursor: pointer;
@@ -255,9 +255,9 @@
 }
 
 .expandChatBtn:hover {
-    background: #000;
+    background: var(--primary);
     color: #fff;
-    border-color: #000;
+    border-color: var(--primary);
 }
 
 .mt {
@@ -338,13 +338,13 @@
     border-radius: 10px;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #000;
+    color: var(--primary);
     transition: all 0.2s ease;
 }
 
 .subActionBtn:hover {
     background: #fdfdfd;
-    border-color: #000;
+    border-color: var(--primary);
 }
 
 .didactic {
@@ -420,9 +420,9 @@
 }
 
 .aiToggle.aiActive {
-    background: #000;
+    background: var(--primary);
     color: #fff;
-    border-color: #000;
+    border-color: var(--primary);
 }
 
 .mcMessages {
@@ -455,7 +455,7 @@
 }
 
 .mcMine .mcBubble {
-    background: #000;
+    background: var(--primary);
     color: #fff;
 }
 
@@ -486,7 +486,7 @@
     width: 34px;
     height: 34px;
     border-radius: 8px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     display: flex;
     align-items: center;
@@ -524,7 +524,7 @@
 .searchBox button {
     width: 30px;
     height: 30px;
-    background: #000 !important;
+    background: var(--primary) !important;
     color: #fff !important;
     border-radius: 8px;
     display: flex;
@@ -580,7 +580,7 @@
 .modalHeader h3 {
     font-size: 1.1rem;
     font-weight: 800;
-    color: #000;
+    color: var(--primary);
 }
 
 .closeBtn {
@@ -596,7 +596,7 @@
 }
 
 .closeBtn:hover {
-    background: #000;
+    background: var(--primary);
     color: #fff;
 }
 
@@ -626,7 +626,7 @@
 
 .resInfo strong {
     font-size: 0.95rem;
-    color: #000;
+    color: var(--primary);
 }
 
 .resInfo span {
@@ -637,7 +637,7 @@
 
 .linkBtn {
     padding: 8px 16px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -702,13 +702,13 @@
 }
 
 .modalSearch input:focus {
-    border-color: #000;
+    border-color: var(--primary);
 }
 
 .modalSearch button {
     width: 42px;
     height: 42px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 10px;
     display: flex;
@@ -817,8 +817,8 @@
 
     .activeTab {
         background: #fff;
-        color: #000;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        color: var(--primary);
+        box-shadow: 0 2px 8px var(--accent-muted);
     }
 
     .mobileChatWrapper {
@@ -911,8 +911,8 @@
 
 .dtTab.active {
     background: #fff;
-    color: #000;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: var(--primary);
+    box-shadow: 0 4px 12px var(--accent-muted);
 }
 
 /* History */
@@ -933,7 +933,7 @@
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 8px;
     font-size: 0.85rem;
@@ -961,7 +961,7 @@
 }
 
 .noteMeta strong {
-    color: #000;
+    color: var(--primary);
 }
 
 .noteMeta span {
@@ -1037,7 +1037,7 @@
 .alertProcess {
     font-size: 0.85rem;
     font-weight: 700;
-    color: #000;
+    color: var(--primary);
     margin-bottom: 8px;
 }
 
@@ -1133,7 +1133,7 @@
     justify-content: center;
     gap: 12px;
     padding: 16px;
-    background: #000;
+    background: var(--primary);
     color: #fff;
     border-radius: 12px;
     font-weight: 700;
@@ -1169,7 +1169,7 @@
 .syncRequired h3 {
     font-size: 1.25rem;
     font-weight: 800;
-    color: #000;
+    color: var(--primary);
 }
 
 .syncRequired p {
