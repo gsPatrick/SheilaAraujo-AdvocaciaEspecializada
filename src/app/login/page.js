@@ -54,7 +54,7 @@ export default function LoginPage() {
                         <div className={styles.logoWrapper}>
                             <img src="/LOGO.jpeg" alt="Logo do Sistema" className={styles.systemLogo} />
                         </div>
-                        <h2 className={styles.title}>Bem-vinda, Carol</h2>
+                        <h2 className={styles.title}>Bem vindo</h2>
                         <p className={styles.subtitle}>Acesse o painel operacional para gerenciar seus protocolos.</p>
                     </div>
 
