@@ -1242,3 +1242,37 @@
     font-weight: 600;
     color: #64748b;
 }
+
+/* Empty State Styles */
+.emptyStateBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    text-align: center;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 2px dashed var(--border);
+    margin-top: 20px;
+}
+
+.emptyIcon {
+    color: #cbd5e1;
+    margin-bottom: 16px;
+    opacity: 0.8;
+}
+
+.emptyTitle {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+}
+
+.emptyDesc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    opacity: 0.8;
+    max-width: 300px;
+}

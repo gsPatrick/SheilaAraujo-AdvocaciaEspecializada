@@ -365,7 +365,11 @@ export default function ContactDetailPage() {
                 </div>
                 <div className={styles.notesList}>
                     {tiNotes.length === 0 ? (
-                        <p className={styles.emptyMsg}>Nenhuma nota encontrada no Portal TI.</p>
+                        <div className={styles.emptyStateBox}>
+                            <ClipboardList size={48} className={styles.emptyIcon} />
+                            <h4 className={styles.emptyTitle}>Nenhuma nota encontrada</h4>
+                            <p className={styles.emptyDesc}>Não há notas registradas no Portal TI para este processo.</p>
+                        </div>
                     ) : (
                         tiNotes.map(note => (
                             <div key={note.id} className={styles.noteItem}>
@@ -406,7 +410,11 @@ export default function ContactDetailPage() {
                 <h3>Alertas Judiciais (Publicações)</h3>
                 <div className={styles.alertsList}>
                     {alerts.length === 0 ? (
-                        <p className={styles.emptyMsg}>Nenhum alerta judicial recebido recentemente.</p>
+                        <div className={styles.emptyStateBox}>
+                            <Bell size={48} className={styles.emptyIcon} />
+                            <h4 className={styles.emptyTitle}>Sem novos alertas</h4>
+                            <p className={styles.emptyDesc}>Não recebemos nenhuma notificação judicial recente.</p>
+                        </div>
                     ) : (
                         alerts.map(alert => (
                             <div key={alert.id} className={`${styles.alertItem} ${alert.isRead ? '' : styles.unread}`}>
