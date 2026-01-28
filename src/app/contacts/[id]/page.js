@@ -78,6 +78,7 @@ export default function ContactDetailPage() {
             try {
                 const response = await axios.get(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}`);
                 setContact(response.data);
+                console.log('DEBUG CONTACT DATA:', response.data);
                 setFormData({
                     contactName: response.data.contactName || '',
                     email: response.data.email || '',
