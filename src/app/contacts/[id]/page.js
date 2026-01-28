@@ -739,7 +739,7 @@ export default function ContactDetailPage() {
                                                     <div className={styles.tiDetails}>
                                                         <div className={styles.infoRow}>
                                                             <span className={styles.infoLabel}>Nome no TI</span>
-                                                            <span className={styles.infoValue}>{contact.contactName}</span>
+                                                            <span className={styles.infoValue}>{contact.contactName || formData.contactName}</span>
                                                         </div>
                                                         <div className={styles.infoRow}>
                                                             <span className={styles.infoLabel}>Código TI</span>
@@ -747,7 +747,7 @@ export default function ContactDetailPage() {
                                                         </div>
                                                         <div className={styles.infoRow}>
                                                             <span className={styles.infoLabel}>CPF</span>
-                                                            <span className={styles.infoValue}>{contact.cpf}</span>
+                                                            <span className={styles.infoValue}>{contact.cpf || formData.cpf}</span>
                                                         </div>
                                                     </div>
                                                     <div className={styles.btnList}>
@@ -756,12 +756,12 @@ export default function ContactDetailPage() {
                                                             Adicionar Nota Jurídica
                                                         </button>
                                                         <a
-                                                            href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName)}`}
+                                                            href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName || formData.contactName)}`}
                                                             target="_blank"
                                                             className={styles.subActionBtn}
                                                         >
                                                             <ExternalLink size={16} />
-                                                            Abrir no Portal TI
+                                                            Acessar Portal TI
                                                         </a>
                                                     </div>
                                                 </div>
