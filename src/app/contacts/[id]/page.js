@@ -1063,10 +1063,7 @@ export default function ContactDetailPage() {
                                                 {saving ? 'Gravando...' : 'Salvar Alterações Locais'}
                                             </button>
                                             {contact.tramitacaoCustomerId && (
-                                                <button onClick={handleUpdateTI} className={styles.tiBtn} disabled={syncing}>
-                                                    <RefreshCw size={18} />
-                                                    {syncing ? 'Sincronizando...' : 'Atualizar no TI'}
-                                                </button>
+
                                             )}
                                         </div>
                                     </div>
