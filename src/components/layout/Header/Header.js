@@ -33,10 +33,7 @@ export default function Header({ title }) {
             </div>
 
             <div className={styles.right}>
-                <div className={styles.search}>
-                    <Search size={16} strokeWidth={1.5} />
-                    <input type="text" placeholder="Pesquisar..." />
-                </div>
+
 
                 <button className={styles.iconButton}>
                     <Bell size={20} strokeWidth={1.5} />
