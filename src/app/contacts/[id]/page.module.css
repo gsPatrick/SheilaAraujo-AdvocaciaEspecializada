@@ -1311,3 +1311,13 @@
     opacity: 0.8;
     max-width: 300px;
 }
+.generateBtn {
+    background: #f0f9ff !important;
+    border-color: #bae6fd !important;
+    color: #0369a1 !important;
+}
+
+.generateBtn:hover:not(:disabled) {
+    background: #e0f2fe !important;
+    border-color: #7dd3fc !important;
+}
