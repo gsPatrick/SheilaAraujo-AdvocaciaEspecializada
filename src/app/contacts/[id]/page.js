@@ -66,6 +66,7 @@ export default function ContactDetailPage() {
     const [syncing, setSyncing] = useState(false);
     const [searchCpf, setSearchCpf] = useState('');
     const [searchResults, setSearchResults] = useState(null);
+    const [generatingDocs, setGeneratingDocs] = useState(false);
 
     // Modal States
     const [noteModalOpen, setNoteModalOpen] = useState(false);
@@ -302,6 +303,24 @@ export default function ContactDetailPage() {
         } catch (error) {
             console.error('Error saving note:', error);
             alert('Erro ao salvar nota.');
+        }
+    };
+
+    const handleGenerateDocs = async () => {
+        if (!window.confirm('Deseja gerar o pacote completo de documentos (Contrato, Procuração, etc.) e enviar para assinatura?')) return;
+
+        setGeneratingDocs(true);
+        try {
+            const response = await axios.post(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}/generate-docs`);
+            alert('Documentos gerados com sucesso! O envelope de assinatura foi criado no TI.');
+            if (response.data.envelope_path) {
+                window.open(`https://planilha.tramitacaointeligente.com.br${response.data.envelope_path}`, '_blank');
+            }
+        } catch (error) {
+            console.error('Error generating docs:', error);
+            alert(`Erro ao gerar documentos: ${error.response?.data?.error || error.message}`);
+        } finally {
+            setGeneratingDocs(false);
         }
     };
 
@@ -738,6 +757,14 @@ export default function ContactDetailPage() {
                                                         <button onClick={() => handleOpenNoteModal()} className={styles.subActionBtn}>
                                                             <ClipboardList size={16} />
                                                             Adicionar Nota Jurídica
+                                                        </button>
+                                                        <button
+                                                            onClick={handleGenerateDocs}
+                                                            className={`${styles.subActionBtn} ${styles.generateBtn}`}
+                                                            disabled={generatingDocs}
+                                                        >
+                                                            {generatingDocs ? <RefreshCw size={16} className={styles.spin} /> : <FileText size={16} />}
+                                                            {generatingDocs ? 'Gerando...' : 'Gerar Pacote de Documentos'}
                                                         </button>
                                                         <a
                                                             href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName || formData.contactName)}`}
