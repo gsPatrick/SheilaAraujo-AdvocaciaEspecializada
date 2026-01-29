@@ -775,6 +775,24 @@ export default function ContactDetailPage() {
                                                             Acessar Portal TI
                                                         </a>
                                                     </div>
+
+                                                    <div className={styles.automationFlow}>
+                                                        <h5>Como funciona a automação?</h5>
+                                                        <div className={styles.flowSteps}>
+                                                            <div className={styles.step}>
+                                                                <div className={styles.stepIcon}>1</div>
+                                                                <span>Carol prepara as minutas e extrai os dados do cliente.</span>
+                                                            </div>
+                                                            <div className={styles.step}>
+                                                                <div className={styles.stepIcon}>2</div>
+                                                                <span>Login seguro e geração simultânea: Contrato + Procuração + Declarações.</span>
+                                                            </div>
+                                                            <div className={styles.step}>
+                                                                <div className={styles.stepIcon}>3</div>
+                                                                <span>O envelope de assinaturas é criado e pronto para conferência.</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>

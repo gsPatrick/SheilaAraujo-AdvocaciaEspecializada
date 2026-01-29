@@ -1321,3 +1321,50 @@
     background: #e0f2fe !important;
     border-color: #7dd3fc !important;
 }
+
+.automationFlow {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed #cbd5e1;
+}
+
+.automationFlow h5 {
+    color: #475569;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+}
+
+.flowSteps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.stepIcon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: #0369a1;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.step span {
+    color: #64748b;
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
