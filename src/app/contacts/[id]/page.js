@@ -73,6 +73,8 @@ export default function ContactDetailPage() {
     const [editingNote, setEditingNote] = useState(null);
     const [noteContent, setNoteContent] = useState('');
     const [validationModalOpen, setValidationModalOpen] = useState(false);
+    const [missingDataModalOpen, setMissingDataModalOpen] = useState(false);
+    const [missingFields, setMissingFields] = useState([]);
 
     useEffect(() => {
         const fetchContact = async () => {
@@ -306,21 +308,63 @@ export default function ContactDetailPage() {
         }
     };
 
+    const validateForGeneration = () => {
+        const requiredFields = [
+            { key: 'contactName', label: 'Nome Completo' },
+            { key: 'email', label: 'E-mail Principal' },
+            { key: 'cpf', label: 'CPF' },
+            { key: 'zipcode', label: 'CEP' },
+            { key: 'street', label: 'Rua' },
+            { key: 'street_number', label: 'Número' },
+            { key: 'neighborhood', label: 'Bairro' },
+            { key: 'city', label: 'Cidade' },
+            { key: 'state', label: 'Estado' }
+        ];
+
+        const missing = requiredFields.filter(field => !formData[field.key]);
+
+        if (missing.length > 0) {
+            setMissingFields(missing);
+            setMissingDataModalOpen(true);
+            return false;
+        }
+        return true;
+    };
+
     const handleGenerateDocs = async () => {
-        if (!window.confirm('Deseja gerar o pacote completo de documentos (Contrato, Procuração, etc.) e enviar para assinatura?')) return;
+        if (!validateForGeneration()) return;
 
         setGeneratingDocs(true);
         try {
-            const response = await axios.post(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}/generate-docs`);
-            alert('Documentos gerados com sucesso! O envelope de assinatura foi criado no TI.');
-            if (response.data.envelope_path) {
-                window.open(`https://planilha.tramitacaointeligente.com.br${response.data.envelope_path}`, '_blank');
-            }
+            await axios.post(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}/generate-docs`);
+            alert('Pacote de documentos gerado com sucesso! O envelope foi criado no portal TI.');
+            // Opcional: recarregar dados ou abrir link
+            window.open(`https://v3.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`, '_blank');
         } catch (error) {
             console.error('Error generating docs:', error);
-            alert(`Erro ao gerar documentos: ${error.response?.data?.error || error.message}`);
+            alert('Erro ao gerar documentos. Verifique se o cliente está ativo no TI.');
         } finally {
             setGeneratingDocs(false);
+        }
+    };
+
+    const handleSaveMissingData = async () => {
+        setSaving(true);
+        try {
+            await axios.put(`https://geral-sheila-api.r954jc.easypanel.host/api/chats/${id}`, formData);
+            setContact({ ...contact, ...formData });
+            setMissingDataModalOpen(false);
+
+            // Auto-trigger generation after save
+            setTimeout(() => {
+                handleGenerateDocs();
+            }, 500);
+
+        } catch (error) {
+            console.error('Error saving data:', error);
+            alert('Erro ao salvar os dados.');
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -498,7 +542,7 @@ export default function ContactDetailPage() {
                 <Bell size={18} />
                 Alertas
             </button>
-        </div>
+        </div >
     );
 
     return (
@@ -716,6 +760,41 @@ export default function ContactDetailPage() {
                                         </div>
                                     </Card>
 
+
+                                    <Card title={`Central de Documentos (Debug ID: ${contact.tramitacaoCustomerId})`} subtitle="Geração automática de peças." className={styles.mt}>
+                                        <div className={styles.actionsGrid}>
+                                            <div className={styles.tiStatusCard} style={{ width: '100%' }}>
+                                                <button
+                                                    onClick={handleGenerateDocs}
+                                                    className={`${styles.subActionBtn} ${styles.generateBtn}`}
+                                                    disabled={generatingDocs}
+                                                >
+                                                    {generatingDocs ? <RefreshCw size={16} className={styles.spin} /> : <FileText size={16} />}
+                                                    {generatingDocs ? 'Gerando...' : 'Gerar Pacote de Documentos'}
+                                                </button>
+
+                                                <div className={styles.automationFlow}>
+                                                    <h5>Como funciona a automação?</h5>
+                                                    <div className={styles.flowSteps}>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>1</div>
+                                                            <span>Carol prepara as minutas e extrai os dados do cliente.</span>
+                                                        </div>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>2</div>
+                                                            <span>Login seguro e geração simultânea: Contrato + Procuração + Declarações.</span>
+                                                        </div>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>3</div>
+                                                            <span>O envelope de assinaturas é criado e pronto para conferência.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+
+
                                     <Card title="Ações da Integração" subtitle="Comandos jurídicos especializados." className={styles.mt}>
                                         <div className={styles.actionsGrid}>
                                             {!contact.tramitacaoCustomerId ? (
@@ -758,14 +837,6 @@ export default function ContactDetailPage() {
                                                             <ClipboardList size={16} />
                                                             Adicionar Nota Jurídica
                                                         </button>
-                                                        <button
-                                                            onClick={handleGenerateDocs}
-                                                            className={`${styles.subActionBtn} ${styles.generateBtn}`}
-                                                            disabled={generatingDocs}
-                                                        >
-                                                            {generatingDocs ? <RefreshCw size={16} className={styles.spin} /> : <FileText size={16} />}
-                                                            {generatingDocs ? 'Gerando...' : 'Gerar Pacote de Documentos'}
-                                                        </button>
                                                         <a
                                                             href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName || formData.contactName)}`}
                                                             target="_blank"
@@ -774,24 +845,6 @@ export default function ContactDetailPage() {
                                                             <ExternalLink size={16} />
                                                             Acessar Portal TI
                                                         </a>
-                                                    </div>
-
-                                                    <div className={styles.automationFlow}>
-                                                        <h5>Como funciona a automação?</h5>
-                                                        <div className={styles.flowSteps}>
-                                                            <div className={styles.step}>
-                                                                <div className={styles.stepIcon}>1</div>
-                                                                <span>Carol prepara as minutas e extrai os dados do cliente.</span>
-                                                            </div>
-                                                            <div className={styles.step}>
-                                                                <div className={styles.stepIcon}>2</div>
-                                                                <span>Login seguro e geração simultânea: Contrato + Procuração + Declarações.</span>
-                                                            </div>
-                                                            <div className={styles.step}>
-                                                                <div className={styles.stepIcon}>3</div>
-                                                                <span>O envelope de assinaturas é criado e pronto para conferência.</span>
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             )}
@@ -1135,6 +1188,42 @@ export default function ContactDetailPage() {
                                     </Card>
                                 )}
 
+
+                                {!!contact.tramitacaoCustomerId && (
+                                    <Card title="Central de Documentos" subtitle="Geração automática de peças." className={styles.mt}>
+                                        <div className={styles.actionsGrid}>
+                                            <div className={styles.tiStatusCard} style={{ width: '100%' }}>
+                                                <button
+                                                    onClick={handleGenerateDocs}
+                                                    className={`${styles.subActionBtn} ${styles.generateBtn}`}
+                                                    disabled={generatingDocs}
+                                                >
+                                                    {generatingDocs ? <RefreshCw size={16} className={styles.spin} /> : <FileText size={16} />}
+                                                    {generatingDocs ? 'Gerando...' : 'Gerar Pacote de Documentos'}
+                                                </button>
+
+                                                <div className={styles.automationFlow}>
+                                                    <h5>Como funciona a automação?</h5>
+                                                    <div className={styles.flowSteps}>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>1</div>
+                                                            <span>Carol prepara as minutas e extrai os dados do cliente.</span>
+                                                        </div>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>2</div>
+                                                            <span>Login seguro e geração simultânea: Contrato + Procuração + Declarações.</span>
+                                                        </div>
+                                                        <div className={styles.step}>
+                                                            <div className={styles.stepIcon}>3</div>
+                                                            <span>O envelope de assinaturas é criado e pronto para conferência.</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </Card>
+                                )}
+
                                 <Card title="Ações da Integração" subtitle="Comandos jurídicos especializados." className={styles.mt}>
                                     <div className={styles.actionsGrid}>
                                         {!contact.tramitacaoCustomerId ? (
@@ -1157,14 +1246,18 @@ export default function ContactDetailPage() {
                                         ) : (
                                             <div className={styles.tiStatusCard}>
                                                 <div className={styles.tiBadge}>VINCULADO AO TI</div>
-                                                <p>ID: {contact.tramitacaoCustomerId}</p>
+                                                <div className={styles.tiDetails}>
+                                                    <p><strong>Nome:</strong> {contact.contactName || formData.contactName}</p>
+                                                    <p><strong>CPF:</strong> {contact.cpf || formData.cpf}</p>
+                                                    <p><strong>ID:</strong> {contact.tramitacaoCustomerId}</p>
+                                                </div>
                                                 <div className={styles.btnList}>
                                                     <button onClick={() => handleOpenNoteModal()} className={styles.subActionBtn}>
                                                         <ClipboardList size={16} />
                                                         Adicionar Nota Jurídica
                                                     </button>
                                                     <a
-                                                        href={`https://v3.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}`}
+                                                        href={`https://planilha.tramitacaointeligente.com.br/clientes/${contact.tramitacaoCustomerId}-${slugify(contact.contactName || formData.contactName)}`}
                                                         target="_blank"
                                                         className={styles.subActionBtn}
                                                     >
@@ -1378,7 +1471,50 @@ export default function ContactDetailPage() {
                         </div>
                     )
                 }
-            </div >
+                {/* Missing Data Modal */}
+                {missingDataModalOpen && (
+                    <div className={styles.modalOverlay}>
+                        <div className={styles.modalContent}>
+                            <div className={styles.modalHeader}>
+                                <h3>Dados Pendentes para Geração</h3>
+                                <button onClick={() => setMissingDataModalOpen(false)} className={styles.closeBtn}>
+                                    <X size={18} />
+                                </button>
+                            </div>
+
+                            <div className={styles.modalBody} style={{ padding: '24px' }}>
+                                <p style={{ marginBottom: '20px', color: 'var(--text-muted)' }}>
+                                    Para gerar os documentos (Contrato, Procuração, etc.), precisamos completar os dados abaixo:
+                                </p>
+
+                                <div className={styles.missingFieldsGrid}>
+                                    {missingFields.map(field => (
+                                        <div key={field.key} className={styles.inputGroupFull} style={{ gridColumn: (field.key === 'contactName' || field.key === 'street') ? 'span 2' : 'span 1' }}>
+                                            <label>{field.label}</label>
+                                            <input
+                                                type="text"
+                                                value={formData[field.key] || ''}
+                                                onChange={(e) => setFormData({ ...formData, [field.key]: e.target.value })}
+                                                className={styles.modalInput}
+                                                placeholder={`Digite o ${field.label}`}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className={styles.modalFooter} style={{ padding: '20px 24px', background: '#f8fafc', borderTop: '1px solid var(--border)', display: 'flex', justifyContent: 'flex-end', gap: '12px' }}>
+                                <button onClick={() => setMissingDataModalOpen(false)} className={styles.cancelBtn}>
+                                    Cancelar
+                                </button>
+                                <button onClick={handleSaveMissingData} className={styles.confirmBtn} disabled={saving}>
+                                    {saving ? <RefreshCw size={16} className={styles.spin} /> : <Save size={16} />}
+                                    {saving ? 'Salvando...' : 'Salvar e Gerar'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}    </div>
         </div >
     );
 }

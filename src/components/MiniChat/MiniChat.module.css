@@ -297,3 +297,38 @@
         display: none !important;
     }
 }
+.audioMessage {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.audioPlayer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.7;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.transcription p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.transcriptionBadge {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    font-weight: 700;
+}
+
+.placeHolderAudio {
+    font-style: italic;
+    opacity: 0.7;
+}

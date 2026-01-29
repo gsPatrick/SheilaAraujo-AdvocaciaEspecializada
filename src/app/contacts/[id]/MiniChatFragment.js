@@ -101,7 +101,24 @@ export default function MiniChatFragment({ chatId }) {
                 {messages.map((msg, i) => (
                     <div key={msg.id || i} className={`${styles.mcMsg} ${msg.isFromMe ? styles.mcMine : styles.mcTheirs}`}>
                         <div className={styles.mcBubble}>
-                            {msg.body}
+                            {msg.audioUrl ? (
+                                <div className={styles.audioMessage}>
+                                    <div className={styles.audioPlayer}>
+                                        <span className={styles.audioIcon}>🎤</span>
+                                        <span className={styles.audioLabel}>Áudio</span>
+                                    </div>
+                                    {msg.transcription ? (
+                                        <div className={styles.transcription}>
+                                            <p>{msg.transcription}</p>
+                                            <span className={styles.transcriptionBadge}>Transcrição de áudio</span>
+                                        </div>
+                                    ) : (
+                                        <p className={styles.placeHolderAudio}>[Áudio sem transcrição]</p>
+                                    )}
+                                </div>
+                            ) : (
+                                msg.body
+                            )}
                         </div>
                     </div>
                 ))}

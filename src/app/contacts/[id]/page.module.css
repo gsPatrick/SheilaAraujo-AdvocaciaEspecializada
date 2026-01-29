@@ -1311,6 +1311,7 @@
     opacity: 0.8;
     max-width: 300px;
 }
+
 .generateBtn {
     background: #f0f9ff !important;
     border-color: #bae6fd !important;
@@ -1367,4 +1368,133 @@
     color: #64748b;
     font-size: 0.85rem;
     line-height: 1.4;
+}
+
+.missingFieldsGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.modalInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+.modalContent {
+    max-width: 500px !important;
+}
+
+.tiDetails {
+    margin: 12px 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.modalActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.modalActions button {
+    min-width: 100px;
+    padding: 10px 16px;
+    height: auto;
+}
+
+.cancelBtn {
+    padding: 10px 16px;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancelBtn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.confirmBtn {
+    padding: 10px 16px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.confirmBtn:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+.missingFieldsGrid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 0;
+    padding-right: 4px;
+    max-height: none;
+    overflow-y: visible;
+}
+
+.modalContent {
+    max-width: 600px !important;
+}
+
+.modalFooter {
+    border-radius: 0 0 20px 20px;
+}
+
+.audioMessage {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.audioPlayer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0.7;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.transcription p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.transcriptionBadge {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+    font-weight: 700;
+}
+
+.placeHolderAudio {
+    font-style: italic;
+    opacity: 0.7;
 }
